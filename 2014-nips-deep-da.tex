@@ -1,0 +1,106 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips14submit_e,times}
+\usepackage{hyperref}
+\usepackage{url}
+%\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
+
+\usepackage{bm}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{xspace}
+%\documentstyle[nips13submit_09,times,art10]{article} % For LaTeX 2.09
+
+
+%\title{Do Supervised Deep Image Models Trained with a Large Dataset Remove Dataset Bias?}
+\title{One-Shot Adaptation of Supervised Deep Convolutional Models}
+
+
+\author{
+Judy Hoffman, Eric Tzeng, Jeff Donahue \\
+UC Berkeley, EECS \& ICSI\\
+\footnotesize{\texttt{\{jhoffman,etzeng,jdonahue\}@eecs.berkeley.edu} }\\
+\And
+Yangqing Jia\thanks{This work was completed while Yangqing Jia was a graduate student at UC Berkeley} \\
+Google Research \\
+\texttt{jiayq@google.com} \\
+\AND
+Kate Saenko \\
+UMass Lowell, CS \& ICSI \\
+\footnotesize{\texttt{saenko@cs.uml.edu}} \\
+\And
+Trevor Darrell \\
+UC Berkeley, EECS \& ICSI\\
+\footnotesize{\texttt{trevor@eecs.berkeley.edu}} \\
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\newcommand{\jh}[1]{\textcolor{red}{Judy: #1}}
+\newcommand{\ks}[1]{\textcolor{magenta}{Kate: #1}}
+\newcommand{\jd}[1]{\textcolor{green}{Jeff: #1}}
+\newcommand{\et}[1]{\textcolor{blue}{Eric: #1}}
+
+\newcommand{\daume}{Daum\'e~III\xspace}
+
+%\nipsfinalcopy % Uncomment for camera-ready version
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+Dataset bias remains a significant barrier towards solving real world computer vision tasks.
+Though deep convolutional networks have proven to be a competitive approach for image classification, a question remains: have these models have solved the dataset bias problem?
+In general, training or fine-tuning a state-of-the-art deep model on a new domain requires a significant amount of data, which for many applications is simply not available.
+Transfer of models directly to new domains without adaptation has historically led to poor recognition performance.
+In this paper, we pose the following question: is a single image dataset, much larger than previously explored for adaptation, comprehensive enough to learn general deep models that may be effectively applied to new image domains? In other words, are deep CNNs trained on large amounts of labeled data as susceptible to dataset bias as previous methods have been shown to be?
+We show that a generic supervised deep CNN model trained on a large dataset reduces, but does not remove, dataset bias.
+Furthermore, we propose several methods for adaptation with deep models that are able to operate with little (one example per category) or no labeled domain specific data.
+Our experiments show that adaptation of deep models on benchmark visual domain adaptation datasets can provide a significant performance boost.
+
+\end{abstract}
+
+\section{Introduction}
+\input introduction
+
+\vspace{-.3cm}
+\section{Background: Deep Domain Adaptation Approaches}
+\vspace{-.2cm}
+\input decaf
+
+\vspace{-.3cm}
+\section{Adapting Deep CNNs with Few Labeled Target Examples}
+\label{sec:adapt-algs}
+\vspace{-.2cm}
+\input adaptation-algs
+
+\section{Evaluation}
+\input eval
+
+\section{Conclusion}
+\input conclusion
+
+
+% References
+\small{
+\bibliographystyle{plain}
+\bibliography{main}
+}
+
+
+\end{document}

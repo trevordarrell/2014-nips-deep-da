@@ -1,0 +1,31 @@
+\begin{table*}
+\centering
+\begin{tabular}{lccc}
+\toprule
+Adaptation Method & Training Data & Source=ImageNet & Source=Amazon \\
+\midrule
+SVM (source only) & Source & $66.23 \pm 0.8$ & $53.23 \pm 1.6$ \\
+SVM (target only) & Webcam & $63.13 \pm 1.9$ & $63.13 \pm 1.9$ \\
+\midrule
+GFK \cite{gong-cvpr12} & Source & \textcolor{blue}{$\bm{68.73 \pm 1.1}$} & $54.56 \pm 1.2$ \\
+SA \cite{sa} & Source & $66.08 \pm 1.1$ & $55.98 \pm 1.0$ \\
+\midrule
+SVM (source and target) & Source+Webcam & $75.13 \pm 1.1$ & $63.20 \pm 1.7$ \\
+Late Fusion (Max) & Source+Webcam & $71.77 \pm 1.4$ & $62.25 \pm 0.8$ \\
+Late Fusion (LinInt Avg) & Source+Webcam & $70.56 \pm 1.2$& $64.56 \pm 1.3$ \\
+\daume \cite{daume} & Source+Webcam & \textcolor{red}{$\bm{77.15 \pm 1.1}$} & $70.51 \pm 1.7$ \\
+PMT \cite{aytar-iccv11} & Source+Webcam & $70.28 \pm 1.8$ & $66.77 \pm 2.1$ \\
+MMDT \cite{hoffman-iclr13} & Source+Webcam & $73.96 \pm 1.2$ & $66.23 \pm 1.4$ \\
+\midrule
+Late Fusion (Lin. Int. Oracle) & Source+Webcam & {$\bm{76.61 \pm 1.5}$} & $71.49 \pm 1.3$ \\
+\bottomrule
+\end{tabular}
+%\caption{Adapting from a pre-trained ImageNet classifier to a new task label set.\jh{fix this caption}}
+\caption{ImageNet$\rightarrow$Webcam and Amazon$\rightarrow$Webcam adaptation
+  experiments using DeCAF$_8$, the label activations of the CNN trained on the
+  full ImageNet data. Again, we compare multiclass accuracy of various
+  unsupervised and supervised adaptation methods. The best performing
+  unsupervised adaptation algorithm is shown in blue and the best performing
+  supervised adaptation algorithms are shown in red.}
+\label{tab:fc8}
+\end{table*}

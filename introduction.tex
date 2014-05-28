@@ -1,0 +1,68 @@
+% Introduction
+% Kate: use the below par for abstract?
+%In recent years, deep convolutional networks have proven to be a competitive approach for visual feature learning \cite{ilsvrc2012,deeplearning-arxiv-2013}. However, due to the large parameter space, training a state-of-the-art model requires a significant amount of data~\cite{supervision}. There are many tasks for which a large dataset is simply not available and collecting new data for each new task is infeasible. Ideally, we would like to collect a single (or at least very few) large datasets that are comprehensive enough to learn general features that may be effectively applied to a variety of tasks.  In practice, many tasks have an inherent bias that should not be ignored without loss of recognition performance. Instead, we argue that one should learn a generic representation from a large dataset and then learn an adapted representation from a small amount of task specific data.
+
+%Many have argued that a deep feature representation captures enough semantic (or at least high level) meaning~\cite{someone-who-said-this} that the features are not subject to the same dataset bias phenomenon ~\cite{efros-cvpr11} of prior computer vision features. To combat this assertion we will demonstrate that dataset bias does still exist with deep features, even with a large amount of training data. Further, we show that domain adaptation can be effectively applied across a variety of experimental settings to overcome dataset bias with deep features. \jh{this paragraph needs work..}
+
+%In this work, we train a deep network on a large generic dataset (ImageNet-1000K~\cite{ilsvrc2012}) and evaluate a variety of techniques for adapting the feature representation to specific tasks. We will refer to the large generic dataset as our source domain and the task specific dataset as our target domain. 
+
+
+Supervised deep convolutional neural networks (CNNs) trained on large-scale
+classification tasks have been shown to learn impressive mid-level structures
+and obtain high levels of performance on contemporary classification
+challenges \cite{ilsvrc2012,zeiler-arxiv-2013}. These models generally assume
+extensive training using labeled data, and testing is limited to data from the
+same domain. In practice, however, the images we would like to classify are
+often produced under different imaging conditions or drawn from a different
+distribution, leading to a domain shift. Scaling such models to new domains
+remains an open challenge.
+% Kate: add "and new tasks" here if we end up including such results
+
+
+Deep CNNs require large amounts of training data to learn
+good mid-level convolutional models and final fully-connected classifier
+stages. While the continuing expansion of web-based datasets like
+ImageNet \cite{ilsvrc2012} promises to produce labeled data for almost any desired
+category, such large-scale supervised datasets
+may not include images of the category across all
+domains of practical interest. Earlier deep learning efforts addressed this
+challenge by learning layers in an unsupervised fashion using unlabeled data to
+discover salient mid-level structures \cite{coates-nips12, dean-nips12}. While such approaches are appealing, they
+have heretofore been unable to match the level of performance of supervised
+models, and unsupervised training of networks with the same level of depth
+as \cite{supervision} remains a challenge.
+
+ 
+Unfortunately, image datasets are inherently biased \cite{efros-cvpr11}. 
+Theoretical \cite{ben2007analysis, blitzer2007learning} and practical results from \cite{saenko-eccv10,efros-cvpr11} have shown that supervised methods' test error increases in proportion to the difference between the test and training input distribution. 
+Many visual domain adaptation methods have been put forth to compensate for dataset bias \cite{daume,yang-icdm07,aytar-iccv11,saenko-eccv10,kulis-cvpr11,Khosla-eccv12,gopalan-iccv11,gong-cvpr12,hoffman-eccv12,hoffman-iclr13}, but are limited to shallow models. 
+Evaluation for image category classification across visually distinct domains has focused on the Office dataset, which contains 31 image categories and 3 domains \cite{saenko-eccv10}. 
+Recently, \cite{deeplearning-arxiv-2013} showed that using the deep mid-level features learned on ImageNet, instead of the more conventional bag-of-words features, effectively removed the bias in some of the domain adaptation settings in the Office dataset \cite{saenko-eccv10}.
+However, \cite{deeplearning-arxiv-2013} limited their experiments to
+small-scale source domains found only in Office, and evaluated on only a subset
+of relevant layers.
+
+Yet until now, almost none of the previous domain adaptation studies used ImageNet as the \textit{source} domain, nor utilized the full set of parameters of a deep CNN trained on source data. Recent work by Rodner et al.~\cite{rodner-arxiv13} attempted to adapt from ImageNet to the SUN dataset, but did not take advantage of deep convolutional features. 
+
+In this paper, we ask the question: will deep models still suffer from dataset
+bias when trained with all layers of the CNN and a truly large scale source
+dataset?
+% Following \cite{deeplearning-arxiv-2013}, we propose and evaluate deep
+% domain adaptation methods across a range of
+% conditions.
+Here, we provide the first evaluation of domain adaptation
+with deep learned representations in its most natural setting, in which all of
+ImageNet is used as source data for a target category.  We use the 1.2 million
+labeled images available in the 2012 ImageNet 1000-way classification
+dataset~\cite{ilsvrc2012} to train the model in \cite{supervision} and evaluate
+its generalization to the Office dataset. This constitutes a three
+orders of magnitude increase in source data compared to the several thousand
+images available for the largest domain in Office.
+
+% \ks{I tried to describe our approach in a more novel way than just evaluating existing DA methods, and present fine-tuning as the obvious 'baseline'}
+We find that it is easier to adapt from ImageNet than from previous smaller source domains, but  that dataset bias remains a major issue. Fine-tuning the parameters on the small amount of labeled target data (we consider one-shot adaptation) turns out to be unsurprisingly problematic. Instead, we propose a simple yet intuitive adaptation method: train a final domain-adapted classification ``layer'' using various layers of the pre-trained network as features, without any fine-tuning its parameters.
+We provide a comprehensive evaluation of existing methods for classifier adaptation as applied to each of the fully connected layers of the network, including the last, task-specific classification layer.
+When adapting from ImageNet to Office, it turns out to be possible to achieve target domain performance on par with source domain performance using only a single labeled example per target category. 
+
+We examine both the setting where there are a few labeled examples from the target domain (\emph{supervised adaptation}) and the setting where there are no labeled target examples (\emph{unsupervised adaptation}). We also describe practical solutions for choosing between the various adaptation methods based on experimental constraints such as limited computation time. 
+%quickly adding a new category at test time without retraining the large dataset, etc.
