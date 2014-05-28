@@ -110,7 +110,8 @@ First, the C value used for C-SVM in the classifier for all methods is set to $C
   %}
 %\end{itemize}
 
-\input{amazon_fc6and7_table}
+\input{tables/amazon_fc6and7_unsup_table}
+\input{tables/amazon_fc6and7_sup_table}
 
 \subsection{Effect of Source Domain Size}
 Previous studies considered source domains from the Office dataset. In this section, we ask what happens when an orders-of-magnitute larger source dataset is used.
@@ -119,7 +120,7 @@ For completeness we begin by evaluating Amazon as a source domain.
 Preliminary results on this setting are reported in~\cite{deeplearning-arxiv-2013}, here 
 we extend the comparison here by
 presenting the results with more adaptation algorithms and more complete
-evaluation of hyperparameter settings. Table~\ref{tab:fc6and7_amazon} presents
+evaluation of hyperparameter settings. Table~\ref{tab:fc6and7_amazon} presents % TODO fix reference
 multiclass accuracies for each algorithm using either layer 6 or 7 from the deep
 network, which corresponds to the output from each of the fully connected layers.
 
@@ -131,14 +132,15 @@ Both of these methods make use of a subspace dimensionality hyperparameter.
 We show the results using a 100-dimensional subspace and leave the discussion of setting this parameter until Section~\ref{sec:analysis}. For this shift the adaptation algorithms increase performance when using the layer 6 feature, but offer no additional improvement when using the layer 7 feature. 
 
 We finally assume that a single example per category is available in the target domain.
-As the bottom rows of Table~\ref{tab:fc6and7_amazon} show, supervised adaptation algorithms are able to provide significant improvement regardless of the feature space chosen, even in the one-shot scenario.
+As the bottom rows of Table~\ref{tab:fc6and7_amazon} show, supervised adaptation algorithms are able to provide significant improvement regardless of the feature space chosen, even in the one-shot scenario. % TODO: fix reference
 For this experiment we noticed that using the second fully connected layer (DeCAF$_7$) was a stronger overall feature in general.
 
 \subsection{Adapting with a Large Scale Source Domain}
 
 We next address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow the same experimental paradigm as the previous experiment, but use ImageNet as our source dataset. 
-The results are shown in Table~\ref{tab:fc6and7_imagenet}.
-\input{imagenet_fc6and7_table}
+The results are shown in Table~\ref{tab:fc6and7_imagenet}. % TODO fix reference
+\input{tables/imagenet_fc6and7_unsup_table}
+\input{tables/imagenet_fc6and7_sup_table}
 
 % \ks{this paragraph is easy to lose.. isn't this the main point of the paper?}
 Again, we first verify that the source only SVM achieves higher performance when tested on in-domain data than on Webcam data. 
@@ -151,7 +153,8 @@ Note that when using ImageNet as a source domain, overall performance of all alg
 
 
 \subsection{Adapting a Pre-trained Classifier to a New Label Set }
-\input{fc8_table}
+\input{tables/fc8_unsup_table}
+\input{tables/fc8_sup_table}
 
 DeCAF$_8$ differs from the other DeCAF features in that it constitutes the 1000
 activations corresponding to the 1000 labels in the ImageNet classification
@@ -161,7 +164,7 @@ using the DeCAF$_8$ activations directly as a feature representation, which is
 akin to training another classifier using the output of the 1000-way CNN
 classifier.
 
-Table~\ref{tab:fc8} shows results for various adaptation techniques using both
+Table~\ref{tab:fc8} shows results for various adaptation techniques using both % TODO fix reference
 ImageNet and Amazon as source domains. We use the same setup as before, but
 instead use DeCAF$_8$ as the feature representation. 
 %KS took out -- this wasnt obvious to me!
