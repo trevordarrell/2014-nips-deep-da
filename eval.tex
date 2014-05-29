@@ -1,6 +1,8 @@
 % evaluation description
 \label{sec:eval}
 
+\et{the tables in this section are going to be mismatched---we decided to switch to only using FC8, but haven't restructured the tables to reflect that change yet.}
+
 %\et{Yangqing says something should go here, but Kate thinks the paragraph we had
 %here before was repetitive, so TODO: come up with a non-repetitive paragraph to
 %introduce this section}
@@ -110,41 +112,36 @@ First, the C value used for C-SVM in the classifier for all methods is set to $C
   %}
 %\end{itemize}
 
+\subsection{Effect of a High Complexity Model}
+
 \input{tables/amazon_fc6and7_unsup_table}
 \input{tables/amazon_fc6and7_sup_table}
 
-\subsection{Effect of a High Complexity Model}
-
-\et{Perhaps this section could use a better title.}
-
 We begin by evaluating the effect that a high complexity model (in this case,
-DeCAF) has on mitigating domain shift.
+a fully trained convolutional net) has on mitigating domain shift.
 
-For completeness we begin by evaluating Amazon as a source domain. 
-Preliminary results on this setting are reported in~\cite{deeplearning-arxiv-2013}, here 
+We evaluate using Amazon as a source domain. 
+Preliminary results on this setting are reported in~\cite{deeplearning-arxiv-2013}, but here 
 we extend the comparison here by
 presenting the results with more adaptation algorithms and more complete
-evaluation of hyperparameter settings. Table~\ref{tab:fc6and7_amazon} presents % TODO fix reference
-multiclass accuracies for each algorithm using either layer 6 or 7 from the deep
-network, which corresponds to the output from each of the fully connected layers.
+evaluation of hyperparameter settings. Tables~\ref{tab:fc6and7_amazon_unsup} and \ref{tab:fc6and7_amazon_sup} present % TODO fix reference
+multiclass accuracies for each algorithm using layer 8 from the deep
+network, which corresponds to the output from the final fully connected layer.
 
-An SVM trained using only Amazon data achieves 78.6\% in-domain accuracy (tested on the same domain) when using the DeCAF$_6$ feature and 80.2\% in-domain accuracy when using the DeCAF$_7$ feature. These numbers are significantly higher than the performance of the same classifier on Webcam test data, indicating that even with the DeCAF features, there is a still a domain shift between the Amazon and Webcam datasets. 
+\et{this paragraph needs to be redone with fc8.} An SVM trained using only Amazon data achieves 78.6\% in-domain accuracy (tested on the same domain) when using the DeCAF$_6$ feature and 80.2\% in-domain accuracy when using the DeCAF$_7$ feature. These numbers are significantly higher than the performance of the same classifier on Webcam test data, indicating that even with the DeCAF features, there is a still a domain shift between the Amazon and Webcam datasets. 
 %This agrees with a similar result previously shown by Donahue et al.~\cite{deeplearning-arxiv-2013}.
 
 Next, we consider an unsupervised adaptation setting where no labeled examples are available from the target dataset. In this scenario, we apply two state-of-the-art unsupervised adaptation methods, GFK~\cite{gong-cvpr12} and SA~\cite{sa}. 
 Both of these methods make use of a subspace dimensionality hyperparameter.
-We show the results using a 100-dimensional subspace and leave the discussion of setting this parameter until Section~\ref{sec:analysis}. For this shift the adaptation algorithms increase performance when using the layer 6 feature, but offer no additional improvement when using the layer 7 feature. 
+We show the results using a 100-dimensional subspace in Table~\ref{tab:fc6and7_amazon_unsup} and leave the discussion of setting this parameter until Section~\ref{sec:analysis}.
 
 We finally assume that a single example per category is available in the target domain.
-As the bottom rows of Table~\ref{tab:fc6and7_amazon} show, supervised adaptation algorithms are able to provide significant improvement regardless of the feature space chosen, even in the one-shot scenario. % TODO: fix reference
-For this experiment we noticed that using the second fully connected layer (DeCAF$_7$) was a stronger overall feature in general.
-
-\et{Should we start a new section/subsection here?}
+As Table~\ref{tab:fc6and7_amazon_sup} shows, supervised adaptation algorithms are able to provide significant improvement, even in the one-shot scenario. % TODO: fix reference
 
 \input{tables/full_office_table}
 
 For the purposes of comparison to prior work, we also ran a set of experiments
-using the standard evaluation protocol for this dataset. \et{Gotta explain what
+using the standard evaluation protocol for the office dataset. \et{Gotta explain what
 the typical protocol is.} Results from these experiments can be seen in
 Table~\ref{tab:fc6and7_full}.
 
@@ -154,53 +151,17 @@ been run.}
 \subsection{Adapting with a Large Scale Source Domain}
 
 We next address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow the same experimental paradigm as the previous experiment, but use ImageNet as our source dataset. 
-The results are shown in Table~\ref{tab:fc6and7_imagenet}. % TODO fix reference
+The results are shown in Tables~\ref{tab:fc6and7_imagenet_unsup} and \ref{tab:fc6and7_imagenet_sup}. % TODO fix reference
 \input{tables/imagenet_fc6and7_unsup_table}
 \input{tables/imagenet_fc6and7_sup_table}
 
 % \ks{this paragraph is easy to lose.. isn't this the main point of the paper?}
+\et{This paragraph also needs to be redone with FC8.}
 Again, we first verify that the source only SVM achieves higher performance when tested on in-domain data than on Webcam data. 
 Indeed, for the 16 overlapping labels, the source SVM produces 62.50\% accuracy on ImageNet data using DeCAF$_6$ features and 74.50\% accuracy when using DeCAF$_7$ features. 
 Compare this to the 54\% and 59\% for Webcam evaluation and a dataset bias is still clearly evident.
 
 Note that when using ImageNet as a source domain, overall performance of all algorithms improves. In addition, unsupervised adaptation approaches are more effective than for the smaller source domain experiment. 
-
-%In particular, for PMT we set $\Gamma=100$, \et{more parameters later}. Any methods that assign weights to the training data use the same balanced weighting scheme as before.
-
-
-\subsection{Adapting a Pre-trained Classifier to a New Label Set }
-\input{tables/fc8_unsup_table}
-\input{tables/fc8_sup_table}
-
-DeCAF$_8$ differs from the other DeCAF features in that it constitutes the 1000
-activations corresponding to the 1000 labels in the ImageNet classification
-task. In the CNN proposed by~\cite{supervision}, these activations are fed into
-a softmax unit to compute the label probabilities. We instead experiment with
-using the DeCAF$_8$ activations directly as a feature representation, which is
-akin to training another classifier using the output of the 1000-way CNN
-classifier.
-
-Table~\ref{tab:fc8} shows results for various adaptation techniques using both % TODO fix reference
-ImageNet and Amazon as source domains. We use the same setup as before, but
-instead use DeCAF$_8$ as the feature representation. 
-%KS took out -- this wasnt obvious to me!
-%Unsurprisingly, 
-The ImageNet results are uniformly better with DeCAF$_8$ than with DeCAF$_6$ or
-DeCAF$_7$, likely due to the fact that DeCAF$_8$ was explicitly
-trained on ImageNet data to effectively discriminate between ImageNet categories.
-Because it can more
-effectively classify images from the source domain, it is able to better adapt
-from the source domain to the target domain.
-
-However, we see a negligible difference in performance for Amazon, with
-performance actually decreasing with respect to DeCAF$_7$ for certain adaptation
-methods. We believe this is because the final activation vector is too specific
-to the 1000-way ImageNet task, and that DeCAF$_7$ provides a more general
-representation that is better suited to the Amazon domain. This, in turn,
-results in improved adaptation.
-In general, however, the difference between the
-various DeCAF representations with Amazon as a source are small enough to be
-insignificant.
 
 \subsection{Analysis and Practical Considerations}
 \label{sec:analysis}

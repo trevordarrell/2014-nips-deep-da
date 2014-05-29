@@ -18,6 +18,8 @@
 %Many methods have been proposed for visual domain adaptation. 
 % \ks{similar edit as in intro, see if this make sense}
 
+\et{The plan here is to seriously tone down the discussion of the adaptation algorithms in favor of pushing our method, which is selecting a layer to adapt with using A-distance, then applying various adaptation techniques on top of that. Unfortunately we haven't gotten around to actually writing out that explanation yet. Reviewers may want to skip this section for now.}
+
 We propose a general framework for selectively adapting the parameters of a convolutional neural network (CNN) whose representation and classifier weights are trained on a large-scale source domain, such as ImageNet.
 Our framework adds a final domain-adaptive classification ``layer'' that takes the activations of one of the existing network's layers as input features. Note that the network cannot be effectively fine-tuned without access to more labeled target data. This adapted layer is a linear classifier that combines source and target training data using an adaptation method. To demonstrate the generality of our framework, we select a representative set of popular linear classifier adaptation approaches that we empirically evaluate in Section~\ref{sec:eval}. We separate our discussion into the set of supervised and unsupervised adaptation settings.
 
