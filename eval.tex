@@ -113,8 +113,12 @@ First, the C value used for C-SVM in the classifier for all methods is set to $C
 \input{tables/amazon_fc6and7_unsup_table}
 \input{tables/amazon_fc6and7_sup_table}
 
-\subsection{Effect of Source Domain Size}
-Previous studies considered source domains from the Office dataset. In this section, we ask what happens when an orders-of-magnitute larger source dataset is used.
+\subsection{Effect of a High Complexity Model}
+
+\et{Perhaps this section could use a better title.}
+
+We begin by evaluating the effect that a high complexity model (in this case,
+DeCAF) has on mitigating domain shift.
 
 For completeness we begin by evaluating Amazon as a source domain. 
 Preliminary results on this setting are reported in~\cite{deeplearning-arxiv-2013}, here 
@@ -134,6 +138,18 @@ We show the results using a 100-dimensional subspace and leave the discussion of
 We finally assume that a single example per category is available in the target domain.
 As the bottom rows of Table~\ref{tab:fc6and7_amazon} show, supervised adaptation algorithms are able to provide significant improvement regardless of the feature space chosen, even in the one-shot scenario. % TODO: fix reference
 For this experiment we noticed that using the second fully connected layer (DeCAF$_7$) was a stronger overall feature in general.
+
+\et{Should we start a new section/subsection here?}
+
+\input{tables/full_office_table}
+
+For the purposes of comparison to prior work, we also ran a set of experiments
+using the standard evaluation protocol for this dataset. \et{Gotta explain what
+the typical protocol is.} Results from these experiments can be seen in
+Table~\ref{tab:fc6and7_full}.
+
+\et{There will be an analysis of the results here once these experiments have
+been run.}
 
 \subsection{Adapting with a Large Scale Source Domain}
 
