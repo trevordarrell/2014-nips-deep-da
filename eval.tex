@@ -110,13 +110,25 @@ First, the C value used for C-SVM in the classifier for all methods is set to $C
   %}
 %\end{itemize}
 
+\subsection{Selecting a Layer with A-Distance}
+
+In order to select which layer of the CNN to use, we compute all pairwise
+A-distances between Office domains using each layer. The resulting numbers are
+shown in \et{a table that hasn't been created yet}. It turns out that using the
+final fully-connected layer produces the lowest A-distance for each domain
+shift. Thus, we exclusively use DeCAF$_8$ in the experiments that follow.
+
+\et{I'd like to generate a plot that shows that A-distance is a reasonable
+proxy for adaptation performance, but I haven't done so yet. That discussion
+would go here once it happens, though.}
+
 \subsection{Effect of a High Complexity Model}
 
 \input{tables/amazon_fc8_unsup_table}
 \input{tables/amazon_fc8_sup_table}
 
-We begin by evaluating the effect that a high complexity model (in this case,
-a fully trained convolutional net) has on mitigating domain shift.
+We begin by evaluating the effect that a high complexity model (in this case, a
+fully trained convolutional net) has on mitigating domain shift.
 
 We evaluate using Amazon as a source domain. 
 Preliminary results on this setting are reported in~\cite{deeplearning-arxiv-2013}, but here 
