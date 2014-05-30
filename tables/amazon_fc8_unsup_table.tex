@@ -1,0 +1,19 @@
+\begin{table*}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Adaptation Method & Training Data & Test Accuracy \\
+\midrule
+SVM (source only) & Amazon & $53.23 \pm 1.6$ \\
+\midrule
+GFK \cite{gong-cvpr12} & Amazon & $54.56 \pm 1.2$ \\
+SA \cite{sa} & Amazon & $55.98 \pm 1.0$ \\
+\bottomrule
+\end{tabular}
+%\caption{Adapting from a pre-trained ImageNet classifier to a new task label set.\jh{fix this caption}}
+
+\caption{Amazon$\rightarrow$Webcam unsupervised adaptation experiments using
+  DeCAF$_8$. In this setup, the labeled source data and the unlabeled target
+  test data are available during training.}
+\label{tab:amazon_fc8_unsup}
+\end{table*}

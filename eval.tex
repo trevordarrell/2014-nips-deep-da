@@ -1,8 +1,6 @@
 % evaluation description
 \label{sec:eval}
 
-\et{the tables in this section are going to be mismatched---we decided to switch to only using FC8, but haven't restructured the tables to reflect that change yet.}
-
 %\et{Yangqing says something should go here, but Kate thinks the paragraph we had
 %here before was repetitive, so TODO: come up with a non-repetitive paragraph to
 %introduce this section}
@@ -114,8 +112,8 @@ First, the C value used for C-SVM in the classifier for all methods is set to $C
 
 \subsection{Effect of a High Complexity Model}
 
-\input{tables/amazon_fc6and7_unsup_table}
-\input{tables/amazon_fc6and7_sup_table}
+\input{tables/amazon_fc8_unsup_table}
+\input{tables/amazon_fc8_sup_table}
 
 We begin by evaluating the effect that a high complexity model (in this case,
 a fully trained convolutional net) has on mitigating domain shift.
@@ -124,7 +122,7 @@ We evaluate using Amazon as a source domain.
 Preliminary results on this setting are reported in~\cite{deeplearning-arxiv-2013}, but here 
 we extend the comparison here by
 presenting the results with more adaptation algorithms and more complete
-evaluation of hyperparameter settings. Tables~\ref{tab:fc6and7_amazon_unsup} and \ref{tab:fc6and7_amazon_sup} present % TODO fix reference
+evaluation of hyperparameter settings. Tables~\ref{tab:amazon_fc8_unsup} and \ref{tab:amazon_fc8_sup} present % TODO fix reference
 multiclass accuracies for each algorithm using layer 8 from the deep
 network, which corresponds to the output from the final fully connected layer.
 
@@ -133,17 +131,17 @@ network, which corresponds to the output from the final fully connected layer.
 
 Next, we consider an unsupervised adaptation setting where no labeled examples are available from the target dataset. In this scenario, we apply two state-of-the-art unsupervised adaptation methods, GFK~\cite{gong-cvpr12} and SA~\cite{sa}. 
 Both of these methods make use of a subspace dimensionality hyperparameter.
-We show the results using a 100-dimensional subspace in Table~\ref{tab:fc6and7_amazon_unsup} and leave the discussion of setting this parameter until Section~\ref{sec:analysis}.
+We show the results using a 100-dimensional subspace in Table~\ref{tab:amazon_fc8_unsup} and leave the discussion of setting this parameter until Section~\ref{sec:analysis}.
 
 We finally assume that a single example per category is available in the target domain.
-As Table~\ref{tab:fc6and7_amazon_sup} shows, supervised adaptation algorithms are able to provide significant improvement, even in the one-shot scenario. % TODO: fix reference
+As Table~\ref{tab:amazon_fc8_sup} shows, supervised adaptation algorithms are able to provide significant improvement, even in the one-shot scenario. % TODO: fix reference
 
 \input{tables/full_office_table}
 
 For the purposes of comparison to prior work, we also ran a set of experiments
 using the standard evaluation protocol for the office dataset. \et{Gotta explain what
 the typical protocol is.} Results from these experiments can be seen in
-Table~\ref{tab:fc6and7_full}.
+Table~\ref{tab:full_office}.
 
 \et{There will be an analysis of the results here once these experiments have
 been run.}
@@ -151,9 +149,9 @@ been run.}
 \subsection{Adapting with a Large Scale Source Domain}
 
 We next address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow the same experimental paradigm as the previous experiment, but use ImageNet as our source dataset. 
-The results are shown in Tables~\ref{tab:fc6and7_imagenet_unsup} and \ref{tab:fc6and7_imagenet_sup}. % TODO fix reference
-\input{tables/imagenet_fc6and7_unsup_table}
-\input{tables/imagenet_fc6and7_sup_table}
+The results are shown in Tables~\ref{tab:imagenet_fc8_unsup} and \ref{tab:imagenet_fc8_sup}. % TODO fix reference
+\input{tables/imagenet_fc8_unsup_table}
+\input{tables/imagenet_fc8_sup_table}
 
 % \ks{this paragraph is easy to lose.. isn't this the main point of the paper?}
 \et{This paragraph also needs to be redone with FC8.}

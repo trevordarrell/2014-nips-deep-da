@@ -1,0 +1,18 @@
+\begin{table*}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Adaptation Method & Training Data & Test Accuracy \\
+\midrule
+SVM (source only) & Imagenet & $66.23 \pm 0.8$ \\
+\midrule
+GFK \cite{gong-cvpr12} & Imagenet & \textcolor{blue}{$\bm{68.73 \pm 1.1}$} \\
+SA \cite{sa} & Imagenet & $66.08 \pm 1.1$ \\
+\bottomrule
+\end{tabular}
+%\caption{Adapting from a pre-trained ImageNet classifier to a new task label set.\jh{fix this caption}}
+\caption{Imagenet$\rightarrow$Webcam unsupervised adaptation experiments using
+  DeCAF$_8$. In this setup, the labeled source data and the unlabeled target
+  test data are available during training.}
+\label{tab:imagenet_fc8_unsup}
+\end{table*}

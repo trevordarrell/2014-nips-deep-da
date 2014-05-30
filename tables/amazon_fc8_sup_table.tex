@@ -1,0 +1,25 @@
+\begin{table*}
+\centering
+\begin{tabular}{lcc}
+\toprule
+Adaptation Method & Training Data & Test Accuracy \\
+\midrule
+SVM (source only) & Amazon & $53.23 \pm 1.6$ \\
+SVM (target only) & Webcam & $63.13 \pm 1.9$ \\
+\midrule
+SVM (source and target) & Amazon+Webcam & $63.20 \pm 1.7$ \\
+Late Fusion (Max) & Amazon+Webcam & $62.25 \pm 0.8$ \\
+Late Fusion (LinInt Avg) & Amazon+Webcam & $64.56 \pm 1.3$ \\
+\daume \cite{daume} & Amazon+Webcam & $70.51 \pm 1.7$ \\
+PMT \cite{aytar-iccv11} & Amazon+Webcam & $66.77 \pm 2.1$ \\
+MMDT \cite{hoffman-iclr13} & Amazon+Webcam & $66.23 \pm 1.4$ \\
+\midrule
+Late Fusion (Lin. Int. Oracle) & Amazon+Webcam & $71.49 \pm 1.3$ \\
+\bottomrule
+\end{tabular}
+%\caption{Adapting from a pre-trained ImageNet classifier to a new task label set.\jh{fix this caption}}
+\caption{Amazon$\rightarrow$Webcam supervised adaptation experiments using
+  DeCAF$_8$. In this setup, the labeled source data and 1 additional labeled
+  target example are available during training.}
+\label{tab:amazon_fc8_sup}
+\end{table*}
