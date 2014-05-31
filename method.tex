@@ -7,7 +7,8 @@
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=.7\linewidth]{figs/model-adapt}
+\includegraphics[width=.45\linewidth]{figs/model-adapt-unsuper}
+\includegraphics[width=.45\linewidth]{figs/model-adapt-super}
 \end{center}
 \caption{Our proposed framework for adaptation. The source data and target data are each independently passed through the supervised convolutional neural network which has been trained on the 1.2Million images in the ILSVRC2012 Challenge dataset~\cite{ilsvrc2012}. We compute the subspace distance (A-distance) between the source and target data as it is represented in each of the fully connected layers of the network (represented in blue). The layer that produces the minimum subspace distance between source and target is chosen for adaptation. Finally, adaptation is performed on the activations from the best layer (shown in red).}
 \label{fig:model}
