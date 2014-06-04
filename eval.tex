@@ -1,6 +1,13 @@
 % evaluation description
 \label{sec:eval}
 
+We begin by evaluating our adaptation algorithm on a standard domain adaptation dataset.
+We show that our algorithm is effectively able to adapt a deep CNN to a target domain with limited or no
+labeled data.
+Second, we will answer our question of whether or not using a high capacity 
+model (deep CNN) in combination with a large labeled source dataset, will remove data set 
+bias. 
+
 %\et{Yangqing says something should go here, but Kate thinks the paragraph we had
 %here before was repetitive, so TODO: come up with a non-repetitive paragraph to
 %introduce this section}
@@ -18,7 +25,9 @@
 The Office~\cite{saenko-eccv10} dataset is a collection of images from three
 distinct domains: Amazon, DSLR, and Webcam. The 31 categories in the dataset
 consist of objects commonly encountered in office settings, such as keyboards,
-file cabinets, and laptops. Of these 31 categories, 16 overlap with the
+file cabinets, and laptops. 
+
+Of these 31 categories, 16 overlap with the
 categories present in the 1000-category ImageNet classification task\footnote{
 The 16 overlapping categories are
 \textit{backpack},
@@ -39,139 +48,160 @@ The 16 overlapping categories are
  and
  \textit{trash can}.
 }.
-Thus, for our experiments, we limit ourselves to these
-16 classes.  In our experiments using Amazon as a source domain,
-we follow the standard training protocol for this dataset of using 20 source
-examples per category~\cite{saenko-eccv10,gong-cvpr12}, for a total of 320
-images.
-
 ImageNet~\cite{ilsvrc2012} is the largest available dataset of image category labels. We use 1000 categories' worth of data (1.2M images) to train the network, and use the 16 categories that overlap with Office (approximately 1200 examples per category or  $\approx$20K images total) as labeled source classifier data.
 
+
 \subsection{Experimental Setup \& Baselines}
-
-% \ks{I reorganized and moved some dataset details here from next sec}
-For our experiments, we use the fully trained deep CNN model described in Section~\ref{sec:decaf}, extracting feature
-representations from three different layers of the CNN. We then train a source classifier using these features on one of two source domains, and adapt to the target domain.
-
-The source domains we consider are either the Amazon domain, or the corresponding 16-category ImageNet subset where each category has many more examples.
-We focus on the Webcam domain as our target (test) domain, as Amazon-to-Webcam  was shown to be the only challenging shift in \cite{deeplearning-arxiv-2013} (the DSLR domain is much more similar to Webcam and did not require adaptation when using deep mid-level features). This combination exemplifies the shift from online web images to real-world images taken in typical office/home environments.
-Note that, regardless of the source domain chosen to learn the classifier, ImageNet data from all 1000 categories was used to train the network. 
-
-In addition, for the supervised adaptation setting we assume access to only a single example per category from the target domain (Webcam). 
-
-%\ks{is this right? is this the standard test set?}
-Each method is then evaluated across 20 random train/test splits, and we report averages and standard errors for each setting. 
+ 
+ Each method is evaluated across 20 random train/test splits, and we report averages and standard errors for each setting. 
 For each random train/test split we choose one example for training and 10 other examples for testing (so there is a balanced test set across categories). Therefore, each test split has 160 examples. The unsupervised adaptation methods operate in a transductive setting, so the target subspaces are learned from the unlabeled test data.
 
+In all experiments, we use the fully trained deep CNN model described in Section~\ref{sec:decaf}, and extract feature representations from the three different fully connected layers of the CNN. We then compute the A-distance between the source and target data at each layer and choose to adapt at the layer with the lower A-distance. We then train a source classifier using these features on one of two source domains, and adapt to the target domain. For all of our experiments, the 8th network layer ending up having the lower A-distance, so we choose that layer to start our adaptation. In general, we suspect that a previous layer may have lower A-distance for a more complex target domain scenario, but the Office dataset is very small and specialized.
+
+%The source domains we consider are either the Amazon domain, or the corresponding 16-category ImageNet subset where each category has many more examples.
+%We focus on the Webcam domain as our target (test) domain, as Amazon-to-Webcam  was shown to be the only challenging shift in \cite{deeplearning-arxiv-2013} (the DSLR domain is much more similar to Webcam and did not require adaptation when using deep mid-level features). This combination exemplifies the shift from online web images to real-world images taken in typical office/home environments.
+%Note that, regardless of the source domain chosen to learn the classifier, ImageNet data from all 1000 categories was used to train the network. 
+
+%In addition, for the supervised adaptation setting we assume access to only a single example per category from the target domain (Webcam). 
+
+%\ks{is this right? is this the standard test set?}
 
 
-\paragraph{Non-adaptive Baselines}
-In addition to the adaptation methods outlined in Section~\ref{sec:adapt-algs},
-we also evaluate using the following non-adaptive baselines.
 
-\begin{itemize}
-  \item{\textbf{SVM (source only)}: A support vector machine trained only on
-    source data. 
+
+%\paragraph{Non-adaptive Baselines}
+%In addition to the adaptation methods outlined in Section~\ref{sec:adapt-algs},
+%we also evaluate using the following non-adaptive baselines.
+
+%\begin{itemize}
+%  \item{\textbf{SVM (source only)}: A support vector machine trained only on
+%    source data. 
 %\ks{why not the CNN itself, in case of imagenet? why re-train and SVM?}
-}
-  \item{\textbf{SVM (target only)}: A support vector machine trained only on
-    target data.}
-  \item{\textbf{SVM (source and target)}: A support vector machine trained on
-  both source and target data. To account for the large discrepancy between the
-  number of training data points in the source and target domains, we weighted
-  the data points such that the constraints from the source and target domains
-  effectively contribute equally to the optimization problem.  Specifically,
-  each source data point receives a weight of $\frac{n_t}{n_s+n_t}$, and each target
-  data point receives a weight of $\frac{n_s}{n_s+n_t}$, where $n_s,n_t$ denote the
-  number of data points in the source and target, respectively.}
-\end{itemize}
+%}
+%  \item{\textbf{SVM (target only)}: A support vector machine trained only on
+%    target data.}
+%  \item{\textbf{SVM (source and target)}: A support vector machine trained on
+%  both source and target data. To account for the large discrepancy between the
+%  number of training data points in the source and target domains, we weighted
+%  the data points such that the constraints from the source and target domains
+%  effectively contribute equally to the optimization problem.  Specifically,
+%  each source data point receives a weight of $\frac{n_t}{n_s+n_t}$, and each target
+%  data point receives a weight of $\frac{n_s}{n_s+n_t}$, where $n_s,n_t$ denote the
+%  number of data points in the source and target, respectively.}
+%\end{itemize}
 
-Many of the adaptation methods we evaluate have hyperparameters that must be
-cross-validated for use in practice, so we set the parameters of the adaptation
-techniques as follows.
+%Many of the adaptation methods we evaluate have hyperparameters that must be
+%cross-validated for use in practice, so we set the parameters of the adaptation
+%techniques as follows.
 
-First, the C value used for C-SVM in the classifier for all methods is set to $C=1$. Without any validation data we are not able to tune this parameter properly, so we choose to leave it as the default value. Since all methods we report require setting of this parameter, we feel that the relative comparisons between methods is sound even if the absolute numbers could be improved with a new setting for C.
+%First, the C value used for C-SVM in the classifier for all methods is set to $C=1$. Without any validation data we are not able to tune this parameter properly, so we choose to leave it as the default value. Since all methods we report require setting of this parameter, we feel that the relative comparisons between methods is sound even if the absolute numbers could be improved with a new setting for C.
 %\begin{itemize}
   %\item{
-  For \daume and MMDT, which look at the source and target data
-  simultaneously, we use the same weighting scheme as we did for the source and
-  target SVM.
+  For the semi-supervised early fusion adaptation method, which looks at the source and target data
+  simultaneously, we weight 
+  the data points such that the constraints from the source and target domains
+ effectively contribute equally to the optimization problem.  Specifically,
+  each source data point receives a weight of $\frac{n_t}{n_s+n_t}$, and each target
+  data point receives a weight of $\frac{n_s}{n_s+n_t}$, where $n_s,n_t$ denote the
+  number of data points in the source and target, respectively.
   %}
   %\item{
-  Late Fusion with the linear interpolation combination rule is reported across hyperparameter settings in Figure~\ref{fig:linint-eval} to help understand how performance varies as we trade off emphasis between the learned classifiers from the source and target domains. Again, we do not have the validation data to tune this parameter so we report in the tables the performance averaged across parameter settings. The plot vs $\alpha$ indicates that there is usually a best parameter setting that could be learned with more available data.
+  
+  For late fusion adaptation, we use the linear interpolation combination averaged over hyper parameter settings. We show the effect of changing this hyper parameter in Figure~\ref{fig:linint-eval} to help understand how performance varies as we trade off emphasis between the learned classifiers from the source and target domains. 
+  %Again, we do not have the validation data to tune this parameter so we report in the tables the performance averaged across parameter settings. The plot vs $\alpha$ indicates that there is usually a best parameter setting that could be learned with more available data.
   %}
   %\item{
-  For PMT, we choose $\Gamma=1000$, which corresponds to allowing a large amount of transfer from the source classifier to the target classifier. We do this because the source-only classifier is
-  stronger than the target-only classifier (with ImageNet source). 
+  %For PMT, we choose $\Gamma=1000$, which corresponds to allowing a large amount of transfer from the source classifier to the target classifier. We do this because the source-only classifier is
+  %stronger than the target-only classifier (with ImageNet source). 
   %}
   %\item{
-  For the unsupervised methods GFK and SA, again we evaluated a variety of
+  For the unsupervised early fusion method we must choose a subspace dimension to project the data onto. We evaluated a variety of
   subspace dimensionalities and Figure~\ref{fig:sagfk-eval} shows that the overall method performance does not vary significantly with the dimensionality choice.
   %}
 %\end{itemize}
 
-\subsection{Selecting a Layer with A-Distance}
+\subsection{Full \emph{Office} Dataset Domain Adaptation Experiment}
+In our experiments using the full Office dataset (31 categories),
+we follow the standard training protocol for this dataset of using 20 source
+examples per category~\cite{saenko-eccv10,gong-cvpr12}
+ for the Amazon source domain and 8 images per category for Webcam or
+ Dslr as the source domains. For the semi-supervised adaptation setting 
+ we assume 3 labeled target examples per category.
 
-In order to select which layer of the CNN to use, we compute all pairwise
-A-distances between Office domains using each layer. The resulting numbers are
-shown in \et{a table that hasn't been created yet}. It turns out that using the
-final fully-connected layer produces the lowest A-distance for each domain
-shift. Thus, we exclusively use DeCAF$_8$ in the experiments that follow.
 
-\et{I'd like to generate a plot that shows that A-distance is a reasonable
-proxy for adaptation performance, but I haven't done so yet. That discussion
-would go here once it happens, though.}
+We begin by evaluating our framework and adaptation algorithm on the standard \emph{Office} dataset benchmark
+for both semi-supervised and unsupervised adaptation. We compare in both scenarios against four recently published methods
+to give context to the space. We report our results on all 6 domain shifts possible with the 3 domains. Each of the previous methods only reported for the 3/6 possible shifts. 
 
-\subsection{Effect of a High Complexity Model}
-
-\input{tables/amazon_fc8_unsup_table}
-\input{tables/amazon_fc8_sup_table}
-
-We begin by evaluating the effect that a high complexity model (in this case, a
-fully trained convolutional net) has on mitigating domain shift.
-
-We evaluate using Amazon as a source domain. 
-Preliminary results on this setting are reported in~\cite{deeplearning-arxiv-2013}, but here 
-we extend the comparison here by
-presenting the results with more adaptation algorithms and more complete
-evaluation of hyperparameter settings. Tables~\ref{tab:amazon_fc8_unsup} and \ref{tab:amazon_fc8_sup} present % TODO fix reference
-multiclass accuracies for each algorithm using layer 8 from the deep
-network, which corresponds to the output from the final fully connected layer.
-
-\et{this paragraph needs to be redone with fc8.} An SVM trained using only Amazon data achieves 78.6\% in-domain accuracy (tested on the same domain) when using the DeCAF$_6$ feature and 80.2\% in-domain accuracy when using the DeCAF$_7$ feature. These numbers are significantly higher than the performance of the same classifier on Webcam test data, indicating that even with the DeCAF features, there is a still a domain shift between the Amazon and Webcam datasets. 
-%This agrees with a similar result previously shown by Donahue et al.~\cite{deeplearning-arxiv-2013}.
-
-Next, we consider an unsupervised adaptation setting where no labeled examples are available from the target dataset. In this scenario, we apply two state-of-the-art unsupervised adaptation methods, GFK~\cite{gong-cvpr12} and SA~\cite{sa}. 
-Both of these methods make use of a subspace dimensionality hyperparameter.
-We show the results using a 100-dimensional subspace in Table~\ref{tab:amazon_fc8_unsup} and leave the discussion of setting this parameter until Section~\ref{sec:analysis}.
-
-We finally assume that a single example per category is available in the target domain.
-As Table~\ref{tab:amazon_fc8_sup} shows, supervised adaptation algorithms are able to provide significant improvement, even in the one-shot scenario. % TODO: fix reference
+The semi-supervised adaptation setting results are shown in Table~\ref{table:full-semi} and the unsupervised adaptation results are shown in Table~\ref{table:full-unsuper}. We notice that our algorithm dramatically outperforms most of the competing methods with the exception of DLID on the webcam to dlsr shift in the semi-supervised setting. These domains are very similar (only a resolution and lighting shift) and so would likely benefit from an adaptation approach that favors the source domain more than our weighting scheme does. 
 
 \input{tables/full_office_table}
 
-For the purposes of comparison to prior work, we also ran a set of experiments
-using the standard evaluation protocol for the office dataset. \et{Gotta explain what
-the typical protocol is.} Results from these experiments can be seen in
-Table~\ref{tab:full_office}.
+\input{tables/full_office_table_unsuper}
 
-\et{There will be an analysis of the results here once these experiments have
-been run.}
+The distinct improvement of our method demonstrates that we are successfully able to transfer the supervised pre-trained deep CNN parameters to a target domain. However the question still follows, did we effectively remove bias and hence the need for our adaptation layer altogether? We address this question in our next experiment.
+
+%\subsection{Effect of a High Complexity Model}
+
+%\input{tables/amazon_fc8_unsup_table}
+%\input{tables/amazon_fc8_sup_table}
+
+%We begin by evaluating the effect that a high complexity model (in this case, a
+%fully trained convolutional net) has on mitigating domain shift.
+
+%We evaluate using Amazon as a source domain. 
+%Preliminary results on this setting are reported in~\cite{deeplearning-arxiv-2013}, but here 
+%we extend the comparison here by
+%presenting the results with more adaptation algorithms and more complete
+%evaluation of hyperparameter settings. Tables~\ref{tab:amazon_fc8_unsup} and \ref{tab:amazon_fc8_sup} present % TODO fix reference
+%multiclass accuracies for each algorithm using layer 8 from the deep
+%network, which corresponds to the output from the final fully connected layer.
+
+%\et{this paragraph needs to be redone with fc8.} An SVM trained using only Amazon data achieves 78.6\% in-domain accuracy (tested on the same domain) when using the DeCAF$_6$ feature and 80.2\% in-domain accuracy when using the DeCAF$_7$ feature. These numbers are significantly higher than the performance of the same classifier on Webcam test data, indicating that even with the DeCAF features, there is a still a domain shift between the Amazon and Webcam datasets. 
+%This agrees with a similar result previously shown by Donahue et al.~\cite{deeplearning-arxiv-2013}.
+
+%Next, we consider an unsupervised adaptation setting where no labeled examples are available from the target dataset. In this scenario, we apply two state-of-the-art unsupervised adaptation methods, GFK~\cite{gong-cvpr12} and SA~\cite{sa}. 
+%Both of these methods make use of a subspace dimensionality hyperparameter.
+%We show the results using a 100-dimensional subspace in Table~\ref{tab:amazon_fc8_unsup} and leave the discussion of setting this parameter until Section~\ref{sec:analysis}.
+
+%We finally assume that a single example per category is available in the target domain.
+%As Table~\ref{tab:amazon_fc8_sup} shows, supervised adaptation algorithms are able to provide significant improvement, even in the one-shot scenario. % TODO: fix reference
+
+
+
+%For the purposes of comparison to prior work, we also ran a set of experiments
+%using the standard evaluation protocol for the office dataset. \et{Gotta explain what
+%the typical protocol is.} Results from these experiments can be seen in
+%Table~\ref{tab:full_office}.
+
+%\et{There will be an analysis of the results here once these experiments have
+%been run.}
 
 \subsection{Adapting with a Large Scale Source Domain}
 
-We next address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow the same experimental paradigm as the previous experiment, but use ImageNet as our source dataset. 
-The results are shown in Tables~\ref{tab:imagenet_fc8_unsup} and \ref{tab:imagenet_fc8_sup}. % TODO fix reference
+We now address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow the same experimental paradigm of taking 20 random train/test splits as the previous experiment, but use ImageNet as our source dataset and limit ourselves to the 
+16 overlapping classes between ILSVRC2012 and \emph{Office}.  We use the webcam domain as our target since it is the most distinct from ImageNet. 
+Additionally, we only use one labeled target example for the semi-supervised adaptation experiment. We do this to determine how useful a labeled target example is during adaptation. If there is very little bias between ImageNet and the webcam domain, then a single target example would not provide much adaptation benefit.
+
+\jh{Do we have the plot of varying the number of target examples with imagenet as source?}
+
+The results are for unsupervised adaptation is shown in Table~\ref{tab:imagenet_fc8}(a) and for supervised adaptation is shown in Table~\ref{tab:imagenet_fc8}(b). % TODO fix reference
 \input{tables/imagenet_fc8_unsup_table}
-\input{tables/imagenet_fc8_sup_table}
+%\input{tables/imagenet_fc8_sup_table}
+
+Interestingly, we find that we are not able to adapt in the unsupervised scenario, however, even with a single labeled target example per category (16 images total!), we are able to produce a dramatic performance boost -- 66\% up to 77\% multi class accuracy.
 
 % \ks{this paragraph is easy to lose.. isn't this the main point of the paper?}
-\et{This paragraph also needs to be redone with FC8.}
-Again, we first verify that the source only SVM achieves higher performance when tested on in-domain data than on Webcam data. 
-Indeed, for the 16 overlapping labels, the source SVM produces 62.50\% accuracy on ImageNet data using DeCAF$_6$ features and 74.50\% accuracy when using DeCAF$_7$ features. 
-Compare this to the 54\% and 59\% for Webcam evaluation and a dataset bias is still clearly evident.
+%\et{This paragraph also needs to be redone with FC8.}
+%Again, we first verify that the source only SVM achieves higher performance when tested on in-domain data than on Webcam data. 
+%Indeed, for the 16 overlapping labels, the source SVM produces 62.50\% accuracy on ImageNet data using DeCAF$_6$ features and 74.50\% accuracy when using DeCAF$_7$ features. 
+%Compare this to the 54\% and 59\% for Webcam evaluation and a dataset bias is still clearly evident.
 
-Note that when using ImageNet as a source domain, overall performance of all algorithms improves. In addition, unsupervised adaptation approaches are more effective than for the smaller source domain experiment. 
+ 
+
+%In addition, unsupervised adaptation approaches are more effective than for the smaller source domain experiment. 
+
+\jh{Explain how fine-tuning doesn't work here. If we don't allow the net to change at all then we won't get worse, but never get better... How best to show this? -- we have numbers to back this up, but that may not be useful}
 
 \subsection{Analysis and Practical Considerations}
 \label{sec:analysis}

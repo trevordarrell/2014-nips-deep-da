@@ -83,6 +83,21 @@ standard domain adaptation literature and experiment using a variety of those
 techniques. The key being that we need to use approaches that can operate with little or no
 target training data.
 
+We explore two adaptation setups: early and late fusion. 
+With early fusion, we consider
+ learning a joint layer directly over the source and target activations. For the semi-supervised setting,
+ we choose to use a simple, and surprisingly effective, 
+ adaptation approach, proposed by presented by \daume et al~\cite{daume}, that fits into our framework. It involves 
+ learning a single classifier model on an augmented feature space where there are source and target specific 
+ dimensions and a set of common dimensions. For the unsupervised adaptation setting, we choose to use a recently
+ proposed subspace alignment algorithm (SA)~\cite{sa}, which is applied to both the source and target activations before 
+ training a classification layer using just the available source data. 
+ 
+ On the other hand, late fusion involves learning source and target
+ specific layers independently and then learning an adaptation layer to combine them. One example adaptation 
+ approach that fits is the late fusion framework is to simply take a linear combination of the source and target 
+ output activations. 
+
 %We are interested in both unsupervised and supervised settings, so we examine
 %two sets of adaptation techniques. For the unsupervised setting, we use the
 %Geodesic Flow Kernel (GFK)~\cite{gong-cvpr12} and Subspace Alignment

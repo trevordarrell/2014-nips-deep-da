@@ -2,24 +2,17 @@
 \centering
 \begin{tabular}{lcc}
 \toprule
-Adaptation Method & Training Data & Test Accuracy \\
+Adaptation Method & Test Accuracy \\
 \midrule
-SVM (source only) & Imagenet & $66.23 \pm 0.8$ \\
-SVM (target only) & Webcam & $63.13 \pm 1.9$ \\
+source only  & $66.23 \pm 0.8$ \\
+target only  & $63.13 \pm 1.9$ \\
 \midrule
-SVM (source and target) & Imagenet+Webcam & $75.13 \pm 1.1$ \\
-Late Fusion (Max) & Imagenet+Webcam & $71.77 \pm 1.4$ \\
-Late Fusion (LinInt Avg) & Imagenet+Webcam & $70.56 \pm 1.2$ \\
-\daume \cite{daume} & Imagenet+Webcam & \textcolor{red}{$\bm{77.15 \pm 1.1}$} \\
-PMT \cite{aytar-iccv11} & Imagenet+Webcam & $70.28 \pm 1.8$ \\
-MMDT \cite{hoffman-iclr13} & Imagenet+Webcam & $73.96 \pm 1.2$ \\
-\midrule
-Late Fusion (Lin. Int. Oracle) & Imagenet+Webcam & {$\bm{76.61 \pm 1.5}$} \\
+Late Fusion & $70.56 \pm 1.2$ \\
+Early Fusion & \textcolor{red}{$\bm{77.15 \pm 1.1}$} \\
 \bottomrule
 \end{tabular}
 %\caption{Adapting from a pre-trained ImageNet classifier to a new task label set.\jh{fix this caption}}
-\caption{Imagenet$\rightarrow$Webcam supervised adaptation experiments using
-  DeCAF$_8$. In this setup, the labeled source data and 1 additional labeled
+\caption{Imagenet$\rightarrow$Webcam supervised adaptation experiments. In this setup, the labeled source data and 1 additional labeled
   target example are available during training.}
 \label{tab:imagenet_fc8_sup}
 \end{table*}

@@ -1,0 +1,22 @@
+\begin{table*}
+  \setlength{\tabcolsep}{4pt}
+  \small
+\centering
+\begin{tabular}{lcccccc}
+\toprule
+                     & $A \rightarrow D$   & $A \rightarrow W$   & $D \rightarrow A$   & $D \rightarrow W$   & $W \rightarrow A$   & $W \rightarrow D$   \\
+\midrule
+GFK(PLS,PCA)~\cite{gong-cvpr12} & - & 15.0$\pm$0.4 & - & 44.6$\pm$0.3 & - & 49.7$\pm$0.5\\
+SA~\cite{fernando-iccv13} & - & 15.3 & - & 50.1& - & 56.9\\
+DA-NBNN~\cite{da-nbnn} & - & 23.3$\pm$2.7 & - & 67.2$\pm$1.9 & - & 67.4$\pm$3.0\\
+DLID~\cite{ref:dlid} & - & 26.13 & - & 68.93 & - & 84.94\\                     
+\midrule
+ Ours (source only)   & $50.17 \pm 0.6$     & $45.61 \pm 0.5$     & $45.32 \pm 0.3$     & $\bm{86.52 \pm 0.3}$     & $44.24 \pm 0.3$     & $87.96 \pm 0.4$     \\
+Ours (early fusion)&      \\
+\bottomrule
+\end{tabular}
+
+\caption{Multi-class accuracy evaluation on the standard unsupervised adaptation setting with the \emph{Office} dataset. Here, we compare against four state of the art domain adaptation methods.(All methods reported on only 3/6 of the domain shifts).}
+\label{table:full-unsuper}
+\end{table*}
+

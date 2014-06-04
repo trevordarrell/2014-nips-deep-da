@@ -1,18 +1,34 @@
 \begin{table*}
-\centering
+\begin{tabular}{c c}
 \begin{tabular}{lcc}
 \toprule
-Adaptation Method & Training Data & Test Accuracy \\
+Adaptation Method & Test Accuracy \\
 \midrule
-SVM (source only) & Imagenet & $66.23 \pm 0.8$ \\
+source only & $66.23 \pm 0.8$ \\
 \midrule
-GFK \cite{gong-cvpr12} & Imagenet & \textcolor{blue}{$\bm{68.73 \pm 1.1}$} \\
-SA \cite{sa} & Imagenet & $66.08 \pm 1.1$ \\
+Early Fusion  & $66.08 \pm 1.1$ \\
 \bottomrule
 \end{tabular}
+
+&
+\hspace{1cm}
+\begin{tabular}{lcc}
+\toprule
+Adaptation Method & Test Accuracy \\
+\midrule
+source only  & $66.23 \pm 0.8$ \\
+target only  & $63.13 \pm 1.9$ \\
+\midrule
+Late Fusion & $70.56 \pm 1.2$ \\
+Early Fusion & {$\bm{77.15 \pm 1.1}$} \\
+\bottomrule
+\end{tabular}
+\\ & \\
+(a) Unsupervised Adaptation & (b) Semi-Supervised Adaptation
+
+\end{tabular}
 %\caption{Adapting from a pre-trained ImageNet classifier to a new task label set.\jh{fix this caption}}
-\caption{Imagenet$\rightarrow$Webcam unsupervised adaptation experiments using
-  DeCAF$_8$. In this setup, the labeled source data and the unlabeled target
-  test data are available during training.}
-\label{tab:imagenet_fc8_unsup}
+\caption{Imagenet$\rightarrow$Webcam adaptation experiments. In this setup, the labeled source data and the unlabeled target
+  test data are available during training in both scenarios.}
+\label{tab:imagenet_fc8}
 \end{table*}
