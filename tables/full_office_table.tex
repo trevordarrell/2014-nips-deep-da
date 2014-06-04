@@ -1,22 +1,14 @@
 \begin{table*}
   \setlength{\tabcolsep}{4pt}
-  \tiny
+  \small
 \centering
-\begin{tabular}{lccccccc}
+\begin{tabular}{lcccccc}
 \toprule
-Adaptation Method & Training Data & A $\rightarrow$ D & A $\rightarrow$ W & D $\rightarrow$ A & D $\rightarrow$ C & C $\rightarrow$ A & C $\rightarrow$ D\\
+                     & $A \rightarrow D$   & $A \rightarrow W$   & $D \rightarrow A$   & $D \rightarrow W$   & $W \rightarrow A$   & $W \rightarrow D$   \\
 \midrule
-SVM (source only) & Source & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
-SVM (target only) & Target & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
-\midrule
-SVM (source and target) & Source+Target & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
-Late Fusion (Max) & Source+Target & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
-Late Fusion (Lin. Int. Avg) & Source+Target & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
-\daume \cite{daume} & Source+Target & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
-PMT \cite{aytar-iccv11} & Source+Target & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
-MMDT \cite{hoffman-iclr13} & Source+Target & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
-\midrule
-Late Fusion (Lin. Int. Oracle) & Source+Target & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$ & $00.00 \pm 0.0$\\
+ SVM (source only)   & $50.17 \pm 0.6$     & $45.61 \pm 0.5$     & $45.32 \pm 0.3$     & $86.52 \pm 0.3$     & $44.24 \pm 0.3$     & $87.96 \pm 0.4$     \\
+ SVM (target only)   & $77.41 \pm 0.5$     & $75.78 \pm 0.5$     & $55.55 \pm 0.5$     & $76.17 \pm 0.4$     & $55.92 \pm 0.4$     & $77.57 \pm 0.4$     \\
+ \daume~\cite{daume} & $78.54 \pm 0.5$     & $77.43 \pm 0.4$     & $58.35 \pm 0.5$     & $85.19 \pm 0.3$     & $59.05 \pm 0.4$     & $86.95 \pm 0.4$     \\
 \bottomrule
 \end{tabular}
 
