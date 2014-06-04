@@ -4,18 +4,18 @@ For our task we consider adapting between a large source domain and a target dom
 A typical approach to domain adaptation or transfer learning with deep architectures is to take the representation learned via back-propagation on a large dataset, and then transfer the representation to a smaller dataset by fine-tuning, i.e. backpropagation at a lower learning rate \cite{rcnn,zeiler-arxiv-2013}.
 However, fine-tuning requires an ample amount of labeled target data and so should not be expected to work well when we consider the very sparse label condition, such as the \textit{one-shot learning} scenario we evaluate below, where we have just one labeled example per category in the target domain.
 
-In fact, in our experiments under this setting, fine-tuning actually reduces performance.
-Specifically, on the ImageNet$\rightarrow$Webcam task reported in Section~\ref{sec:eval}, using the final output layer as a predictor in the target domain received 66\% accuracy, while using the final output layer after fine tuning produced a degraded accuracy of 61\%.
+In fact, in our experiments under this setting, fine-tuning, with the standard approach, actually reduces performance.
+Specifically, on the ImageNet$\rightarrow$Webcam task reported in Section~\ref{sec:eval}, using the final output layer as a predictor in the target domain received 66\% accuracy, while using the final output layer after fine tuning produced a degraded accuracy of 61\%. in our experiments, the only clear way to avoid overfitting and reducing overall performance, was to set the learning rates so low the model essentially did not change.
 
 A separate method that was recently proposed for deep adaptation is called Deep Learning for domain adaptation by Interpolating between Domains (DLID)~\cite{ref:dlid}. This method learns multiple unsupervised deep models directly on the source, target, and combined datasets and uses a representation which is the concatenation of the outputs of each model as its adaptation approach. 
-While this was shown to be an interesting approach, it is limited by its use of unsupervised deep structures. 
+While this was shown to be an interesting approach, it is limited by its use of only convolutional deep layers and it's focus on unsupervised learning for the majority of it's training.
 
 In general, unsupervised deep convolutional models have been unable to achieve the performance of supervised deep CNNs. However, training a supervised deep model requires sufficient labeled data. Our insight is that the extensive labeled data available in the source domain can be exploited using a supervised model without requiring a significant amount of labeled target data.
 
-Therefore, we propose using a supervised deep source model with supervised or unsupervised adaptation algorithms that are applied to models learned on the target data directly. 
-This hybrid approach will utilize the strong representation available from the supervised deep model trained on a large source dataset while requiring only enough target labeled data to train a shallow model with far fewer parameters. 
-Specifically, we consider training a convolutional neural network (CNN) on the source domain and using that network to extract features on the target data that can then be used to train an auxiliary shallow learner. 
-For extracting features from the deep source model, we follow the setup of Donahue et al.~\cite{deeplearning-arxiv-2013}, which extracts a visual feature \textit{DeCAF} from the ImageNet-trained architecture of~\cite{supervision}.
+Therefore, we propose learning a supervised deep CNN using a large amount of source data. Then, we considering fixing the network and training a new final adaptation layer that takes as input the activations from both the source and target data. By using this hybrid approach we utilize the strong representation available from the supervised deep model trained on a large source dataset while requiring only enough target labeled data to train a shallow model with far fewer parameters. 
+
+
+%For extracting features from the deep source model, we follow the setup of Donahue et al.~\cite{deeplearning-arxiv-2013}, which extracts a visual feature \textit{DeCAF} from the ImageNet-trained architecture of~\cite{supervision}.
 
 % Following the successful experiments of~\cite{deeplearning-arxiv-2013}, our experiments in Section~\ref{sec:eval} take features computed from the fully-connected layers of the network: DeCAF$_6$ and DeCAF$_7$.
 % We then go beyond the ``mid-level'' layers to explore DeCAF$_8$, the 1000-dimensional layer whose activations are fed into a soft-max unit to compute the label probabilities, as a basis for adaptation.
