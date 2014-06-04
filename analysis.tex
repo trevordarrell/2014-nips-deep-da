@@ -4,29 +4,19 @@ that traditional domain adaptation methods go a long way in increasing performan
 Depending on the characteristics of the problem at hand, our results suggest different methods may be most suitable.
 
 If no labels exist in the target domain, then there are unsupervised adaptation algorithms that are easy to use and fast to compute at adaptation time, yet still achieve increased performance over source-only methods. 
-For this scenario, we experimented with two subspace alignment based methods that both require setting a parameter that indicates the dimensionality of the input subspaces. 
+For this scenario, we experimented a subspace alignment based method that requires setting a parameter that indicates the dimensionality of the input subspaces. 
 Figure~\ref{fig:sagfk-eval} shows the effect that changing the subspace dimensionality has on the overall method performance. 
 In general, we noticed that these methods were not particularly sensitive to this parameter so long as the dimensionality remains larger than the number of categories in our label set.
 Below this threshold, the subspace is less likely to capture all important discriminative information needed for classification.
 
 In the case where we have a large source dataset and a limited number of labeled target examples, it may be preferable to compute source classifier parameters in advance, then examine only the source parameters and the target data at adaptation time.
-Examples of these kinds of methods are Late Fusion and PMT.
-These methods are unaffected by the number of data points in the source domain at adaptation time, and can thus be applied quickly.
-In our experiments, we found that a properly tuned Late Fusion classifier with linear interpolation was the fastest and most effective approach.
-Figure~\ref{fig:linint-eval} shows the performance of linear interpolation Late Fusion as we vary the hyperparameter $\alpha$.
+This would correspond to using our late fusion approach which is unaffected by the number of data points in the source domain at adaptation time, and can thus be applied quickly.
+However, this method requires setting a hyper parameter. 
+Figure~\ref{fig:linint-eval} shows the performance of linear interpolation Late Fusion as we vary the hyperparameter $\alpha$ (combination parameter).
 Although the method is sensitive to $\alpha$, we found that for both source domains, the basic strategy of setting $\alpha$ around $0.8$ provides a close approximation to optimal performance. 
-This setting can be interpreted as trusting the target classifier more than the source, but not so much as to completely discount the information available from the source classifier. In each table we report both the performance of linear interpolation both averaged across hyper parameter settings $\alpha \in [0,1]$ as well as the performance of linear interpolation with the best possible setting of $\alpha$ per experiment -- this is denoted as ``Oracle" performance.
+This setting can be interpreted as trusting the target classifier more than the source, but not so much as to completely discount the information available from the source classifier. In each table we report the performance of linear interpolation averaged across hyper parameter settings $\alpha \in [0,1]$ for fairness.
 
 If there are no computational constraints and there are very few labels in
-the target domain, the best-performing method seems to be the ``frustratingly
-easy'' approach originally proposed by \daume~\cite{daume} and applied again for
-deep models in \cite{ref:dlid}.
+the target domain, the best-performing method semi-supervised adaptation method is to use our early fusion technique with a classifier trained using the ``frustratingly easy'' approach originally proposed by \daume~\cite{daume} and applied again for
+unsupervised deep models in \cite{ref:dlid}.
 
-Finally, we found that feature representation can have a significant impact on
-adaptation performance. Our results show that ImageNet as source performs best
-with the DeCAF$_8$ representation, whereas Amazon as source performs best with
-the DeCAF$_7$ representation. This, combined with our intuition, seems to
-indicate that for adaptation from source domains other than ImageNet, an
-intermediate representation other than DeCAF$_8$ is more powerful for
-adaptation, whereas ImageNet classification works best with the full representation that
-was trained on it.
