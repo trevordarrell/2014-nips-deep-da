@@ -1,13 +1,17 @@
 \begin{figure}
 \centering
 \subfigure[Late Fusion with Linear Interpolation]{
-\includegraphics[height=.4\linewidth]{figs/amazonAndImagenet-linint-vs-alpha_C1_fc8.pdf}
+\includegraphics[height=.25\linewidth]{figs/amazonAndImagenet-linint-vs-alpha_C1_fc8.pdf}
 \label{fig:linint-eval}
 }
 \subfigure[Unsupervised Methods]{
-\includegraphics[height=.4\linewidth]{figs/amazonAndImagenet-sa_gfk_dim_C1_fc7.pdf}
+\includegraphics[height=.25\linewidth]{figs/amazonAndImagenet-sa_gfk_dim_C1_fc7.pdf}
 \label{fig:sagfk-eval}
 }
-\caption{Evaluation of hyperparameters for domain adaptation methods. (a) Analysis of the combination hyperparameter $\alpha$ for Late Fusion with linear interpolation. (b) Analysis of the subspace dimensionality for the unsupervised adaptation algorithms}
+\subfigure[Feature Representation]{
+\includegraphics[height=.25\linewidth]{figs/imgnet_webcam_a_dist}
+\label{fig:a-dist-eval}
+}
+\caption{Evaluation of hyperparameters for domain adaptation methods. (a) Analysis of the combination hyperparameter $\alpha$ for Late Fusion with linear interpolation. (b) Analysis of the subspace dimensionality for the unsupervised adaptation algorithms. (c) Analysis of the choice of feature representation.}
 \label{fig:hyperparam-eval}
 \end{figure}
