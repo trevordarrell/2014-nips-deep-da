@@ -179,11 +179,19 @@ The distinct improvement of our method demonstrates that we are successfully abl
 
 \subsection{Adapting with a Large Scale Source Domain}
 
+\begin{figure}
+  \centering
+  \includegraphics[height=0.4\textwidth]{figs/imagenet_webcam_vary_num_target_examples}
+  \caption{Multiclass accuracy evaluation on the Imagenet to Webcam shift while varying the number of labeled target examples. DFE stays significantly ahead of the non-adaptive baseline until 5 labeled target examples per category are available (155 labeled examples total).}
+  \label{fig:vary_num_target}
+\end{figure}
+
 We now address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow the same experimental paradigm of taking 20 random train/test splits as the previous experiment, but use ImageNet as our source dataset and limit ourselves to the 
 16 overlapping classes between ILSVRC2012 and \emph{Office}.  We use the webcam domain as our target since it is the most distinct from ImageNet. 
 Additionally, we only use one labeled target example for the semi-supervised adaptation experiment. We do this to determine how useful a labeled target example is during adaptation. If there is very little bias between ImageNet and the webcam domain, then a single target example would not provide much adaptation benefit.
 
 \jh{Do we have the plot of varying the number of target examples with imagenet as source?}
+\et{Yes, in Figure~\ref{fig:vary_num_target}}
 
 The results are for unsupervised adaptation is shown in Table~\ref{tab:imagenet_fc8}(a) and for supervised adaptation is shown in Table~\ref{tab:imagenet_fc8}(b). % TODO fix reference
 \input{tables/imagenet_fc8_unsup_table}
