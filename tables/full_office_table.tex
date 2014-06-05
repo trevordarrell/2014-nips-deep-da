@@ -6,19 +6,19 @@
 \toprule
                      & $A \rightarrow D$   & $A \rightarrow W$   & $D \rightarrow A$   & $D \rightarrow W$   & $W \rightarrow A$   & $W \rightarrow D$   \\
 \midrule
-GFK(PLS,PCA)~\cite{gong-cvpr12} & - & 46.4$\pm$0.5 & - & 61.3$\pm$0.4 & - & 66.3$\pm$0.4\\
+GFK(PLS,PCA)~\cite{gong-cvpr12} & - & 46.4 $\pm$ 0.5 & - & 61.3 $\pm$ 0.4 & - & 66.3 $\pm$ 0.4\\
 SA~\cite{fernando-iccv13} & - & 45.0 & - & 64.8 & - & 69.9\\
 DLID~\cite{ref:dlid} & - & 51.9 & - & 78.2 & - & \bf{89.9}\\     
-DA-NBNN~\cite{da-nbnn} & - & 52.8$\pm$3.7 & - & 76.6$\pm$1.7 &           - & 76.2$\pm$2.5\\
+DA-NBNN~\cite{da-nbnn} & - & 52.8 $\pm$ 3.7 & - & 76.6 $\pm$ 1.7 &           - & 76.2 $\pm$ 2.5\\
 \midrule
- Ours (source only)   & $50.2 \pm 0.6$     & $45.6 \pm 0.5$     & $45.3 \pm 0.3$     & $\bm{86.5 \pm 0.3}$     & $44.2 \pm 0.3$     & $88.0 \pm 0.4$     \\
- Ours (target only)   & $77.4 \pm 0.5$     & $75.8 \pm 0.5$     & $55.6 \pm 0.5$     & $76.2 \pm 0.4$     & $55.9 \pm 0.4$     & $77.6 \pm 0.4$     \\
-Ours (early fusion)& $\bm{78.5 \pm 0.5}$     & $\bm{77.4 \pm 0.4}$     & $\bm{58.4 \pm 0.5}$     & $85.2 \pm 0.3$     & $\bm{59.1 \pm 0.4}$     & $87.0 \pm 0.4$     \\
-Ours (late fusion)& $69.3 \pm 0.8$ & $66.8 \pm 0.7$ & $56.7 \pm 0.4$ & $86.4 \pm 0.4$ & $56.3 \pm 0.6$ & $87.1 \pm 0.6$ \\
+ Ours - source only   & $50.2 \pm 0.6$     & $45.6 \pm 0.5$     & $45.3 \pm 0.3$     & $\bm{86.5 \pm 0.3}$     & $44.2 \pm 0.3$     & $88.0 \pm 0.4$     \\
+ Ours - target only   & $77.4 \pm 0.5$     & $75.8 \pm 0.5$     & $55.6 \pm 0.5$     & $76.2 \pm 0.4$     & $55.9 \pm 0.4$     & $77.6 \pm 0.4$     \\
+Ours - DFE & $\bm{78.5 \pm 0.5}$     & $\bm{77.4 \pm 0.4}$     & $\bm{58.4 \pm 0.5}$     & $85.2 \pm 0.3$     & $\bm{59.1 \pm 0.4}$     & $87.0 \pm 0.4$     \\
+Ours - DLF& $69.3 \pm 0.8$ & $66.8 \pm 0.7$ & $56.7 \pm 0.4$ & $86.4 \pm 0.4$ & $56.3 \pm 0.6$ & $87.1 \pm 0.6$ \\
 \bottomrule
 \end{tabular}
 
-\caption{Multi-class accuracy evaluation on the standard supervised adaptation setting with the \emph{Office} dataset. We evaluate on all 31 categories using the standard experimental protocol from ~\cite{saenko-eccv10}. Here, we compare against four state of the art domain adaptation methods (they all reported on only 3/6 domain shifts).}
+\caption{Multi-class accuracy evaluation on the standard supervised adaptation setting with the \emph{Office} dataset. We evaluate on all 31 categories using the standard experimental protocol from ~\cite{saenko-eccv10}. Here, we compare against four state of the art domain adaptation methods which each reported results on only 3/6 domain shifts.}
 \label{table:full-semi}
 \end{table*}
 
