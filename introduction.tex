@@ -36,33 +36,37 @@ as \cite{supervision} remains a challenge.
 Unfortunately, image datasets are inherently biased \cite{efros-cvpr11}. 
 Theoretical \cite{ben2007analysis, blitzer2007learning} and practical results \cite{saenko-eccv10,efros-cvpr11} have shown that supervised methods' test error increases in proportion to the difference between the test and training input distribution. 
 Many visual domain adaptation methods have been put forth to compensate for dataset bias \cite{daume,yang-icdm07,aytar-iccv11,saenko-eccv10,kulis-cvpr11,Khosla-eccv12,gopalan-iccv11,gong-cvpr12,hoffman-eccv12,hoffman-iclr13}, but are limited to shallow models. 
-Evaluation for image category classification across visually distinct domains has focused on the standard benchmark Office dataset, which contains 31 image categories and 3 domains \cite{saenko-eccv10}. 
+
+The standard benchmark for image category classification across visually distinct domains is the Office dataset, which contains 31 image categories and 3 domains \cite{saenko-eccv10}. 
 Recently, \cite{deeplearning-arxiv-2013} showed that using the deep mid-level features learned on ImageNet, instead of the more conventional bag-of-words features, effectively removed the bias in some of the domain adaptation settings in the Office dataset \cite{saenko-eccv10}.
 However, \cite{deeplearning-arxiv-2013} limited their experiments to
-small-scale source domains found only in Office, and evaluated on only a subset
-of relevant layers. In contrast, ImageNet has roughly 100 times more data per category then the domains in the office dataset.
+small-scale source domains found only in Office, which are three orders of magnitude smaller than ImageNet, and evaluated on only a subset
+of relevant layers.
 
-Yet until now, almost none of the previous domain adaptation studies used ImageNet as the \textit{source} domain, nor utilized the full set of parameters of a deep CNN trained on source data. Recent work by Rodner et al.~\cite{rodner-arxiv13} attempted to adapt from ImageNet to the SUN dataset, but did not take advantage of deep convolutional features. 
+Until now, almost none of the previous domain adaptation studies used ImageNet as the \textit{source} domain, nor utilized the full set of parameters of a deep CNN trained on source data. Recent work by Rodner et al.~\cite{rodner-arxiv13} attempted to adapt from ImageNet to the SUN dataset, but did not take advantage of deep convolutional features. 
 
-In this paper, we ask the question: will deep models still suffer from dataset
+For our first contribution, we answer the following question: will deep models still suffer from dataset
 bias when trained with all layers of the CNN and a truly large scale source
 dataset?
 % Following \cite{deeplearning-arxiv-2013}, we propose and evaluate deep
 % domain adaptation methods across a range of
 % conditions.
-Here, we provide the first evaluation of benchmark visual domain adaptation tasks
-with deep learned representations in its most natural setting, in which all of
-ImageNet is used as source data for a target category.  We use the 1.2 million
-labeled images available in the 2012 ImageNet 1000-way classification
-dataset~\cite{ilsvrc2012} to train the model in \cite{supervision} and evaluate
-its generalization to the Office dataset. This constitutes a three
-orders of magnitude increase in source data compared to the several thousand
-images available for the largest domain in Office.
+Here, we provide the first evaluation of benchmark visual domain adaptation
+tasks with deep learned representations in its most natural setting, in which
+all of ImageNet is used as source data for a target category.  We use the 1.2
+million labeled images available in the 2012 ImageNet 1000-way classification
+dataset~\cite{ilsvrc2012} to train the model in \cite{supervision}.  We then
+leverage this trained model as a feature representation and compose it with
+standard domain adaptation techniques to evaluate its generalization to the
+Office dataset.  This constitutes a three orders of magnitude increase in source
+data compared to the several thousand images available for the largest domain in
+Office.
 
 % \ks{I tried to describe our approach in a more novel way than just evaluating existing DA methods, and present fine-tuning as the obvious 'baseline'}
-We find that it is better to adapt from ImageNet than from previous smaller source domains, but  that dataset bias nonetheless remains a major issue. Fine-tuning the parameters on the small amount of labeled target data (we consider one-shot adaptation) turns out to be unsurprisingly problematic. Instead, we propose a simple yet intuitive adaptation framework that integrates existing domain adaptation techniques with the deep architecture. We train a final domain-adapted classification ``layer'' using the activations from the network layer which minimizes the domain shift. 
+We find that it is better to adapt from ImageNet than from previous smaller source domains, but  that dataset bias nonetheless remains a major issue. Fine-tuning the parameters on the small amount of labeled target data (we consider one-shot adaptation) turns out to be unsurprisingly problematic. Thus, for our second contribution, we instead propose a simple yet intuitive adaptation framework that integrates existing domain adaptation techniques with the deep architecture. We train a final domain-adapted classification ``layer'' using the activations from the network layer that minimizes the domain shift. 
 We provide a comprehensive evaluation of existing methods for classifier adaptation.
-When adapting from ImageNet to Office, it turns out to be possible to achieve target domain performance on par with source domain performance using only a single labeled example per target category. 
+The good news is, when adapting from ImageNet to Office, it turns out to be possible to achieve target domain performance on par with source domain performance using only a single labeled example per target category.
+Our method also exceeds all previously published results on the standard benchmark Office adaptation task.
 
 We examine both the setting where there are a few labeled examples from the target domain (\emph{supervised adaptation}) and the setting where there are no labeled target examples (\emph{unsupervised adaptation}). We also describe practical solutions for choosing between the various adaptation methods based on experimental constraints such as limited computation time. 
 %quickly adding a new category at test time without retraining the large dataset, etc.
