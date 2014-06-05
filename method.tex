@@ -57,7 +57,7 @@ To select a layer, we assess the domain-invariance of each layer using their A-d
 can be used to measure the distinguishability of two datasets.
 
 We compute the A-distance metric on the source and target activations after each fully 
-connected layer 
+connected layer
 and automatically select the  layer after which
 our source and target datasets are most similar, and hence most amenable to adaptation.
 
@@ -71,7 +71,7 @@ Given two domains $X_1$ and $X_2$, the A-distance between them is defined as:
 where $E(h^*(X_1, X_2))$ is the test error of the optimal hyperplane that attempts to
 distinguish between the two domains.
 
-In practice, it's NP-hard to find the optimal hyperplane, so we use a computationally simple and 
+In practice, it is NP-hard to find the optimal hyperplane, so we use a computationally simple and 
 close approximation to the A-distance metric which was introduced by Ben-David et al~\cite{adist-comp}, 
 where the optimal hyperplane is replaced by the classifier model parameter learned from a linear SVM.
 
@@ -83,20 +83,30 @@ standard domain adaptation literature and experiment using a variety of those
 techniques. The key being that we need to use approaches that can operate with little or no
 target training data.
 
-We explore two adaptation setups: early and late fusion. 
-With early fusion, we consider
- learning a joint layer directly over the source and target activations. For the semi-supervised setting,
- we choose to use a simple, and surprisingly effective, 
- adaptation approach, proposed by presented by \daume et al~\cite{daume}, that fits into our framework. It involves 
- learning a single classifier model on an augmented feature space where there are source and target specific 
- dimensions and a set of common dimensions. For the unsupervised adaptation setting, we choose to use a recently
- proposed subspace alignment algorithm (SA)~\cite{sa}, which is applied to both the source and target activations before 
- training a classification layer using just the available source data. 
- 
- On the other hand, late fusion involves learning source and target
- specific layers independently and then learning an adaptation layer to combine them. One example adaptation 
- approach that fits is the late fusion framework is to simply take a linear combination of the source and target 
- output activations. 
+We explore three adaptation setups:
+\begin{itemize}
+  \item \textbf{Deep and Frustratingly Easy (DFE)}
+    We first consider learning a joint layer directly over the source and target
+    activations. For the semi-supervised setting, we choose to use a simple and
+    surprisingly effective adaptation approach, proposed by \daume
+    et al~\cite{daume}, that fits into our framework. It involves learning a
+    single classifier model on an augmented feature space where there are source
+    and target specific dimensions as well as a set of common dimensions.
+
+  \item \textbf{Deep Late Fusion (DLF)}
+    An alternative to DFE involves learning source and target specific layers
+    independently and then learning an adaptation layer to combine them
+    afterwards. One example adaptation approach that fits in the late fusion
+    framework is to simply take a linear combination of the source and target
+    output activations.
+
+  \item \textbf{Deep Subspace Alignment (DSA)}
+    For the unsupervised adaptation setting, we choose to use a recently
+    proposed subspace alignment algorithm (SA)~\cite{sa}, which is applied to
+    both the source and target activations before training a classification
+    layer using just the available source data.
+
+\end{itemize}
 
 %We are interested in both unsupervised and supervised settings, so we examine
 %two sets of adaptation techniques. For the unsupervised setting, we use the
