@@ -50,7 +50,7 @@ dataset?
 % Following \cite{deeplearning-arxiv-2013}, we propose and evaluate deep
 % domain adaptation methods across a range of
 % conditions.
-Here, we provide the first evaluation of domain adaptation
+Here, we provide the first evaluation of benchmark visual domain adaptation tasks
 with deep learned representations in its most natural setting, in which all of
 ImageNet is used as source data for a target category.  We use the 1.2 million
 labeled images available in the 2012 ImageNet 1000-way classification
@@ -60,7 +60,7 @@ orders of magnitude increase in source data compared to the several thousand
 images available for the largest domain in Office.
 
 % \ks{I tried to describe our approach in a more novel way than just evaluating existing DA methods, and present fine-tuning as the obvious 'baseline'}
-We find that it is easier to adapt from ImageNet than from previous smaller source domains, but  that dataset bias remains a major issue. Fine-tuning the parameters on the small amount of labeled target data (we consider one-shot adaptation) turns out to be unsurprisingly problematic. Instead, we propose a simple yet intuitive adaptation framework that integrates existing domain adaptation techniques with the deep architecture. We train a final domain-adapted classification ``layer'' using the activations from the network layer which minimizes the domain shift. 
+We find that it is better to adapt from ImageNet than from previous smaller source domains, but  that dataset bias nonetheless remains a major issue. Fine-tuning the parameters on the small amount of labeled target data (we consider one-shot adaptation) turns out to be unsurprisingly problematic. Instead, we propose a simple yet intuitive adaptation framework that integrates existing domain adaptation techniques with the deep architecture. We train a final domain-adapted classification ``layer'' using the activations from the network layer which minimizes the domain shift. 
 We provide a comprehensive evaluation of existing methods for classifier adaptation.
 When adapting from ImageNet to Office, it turns out to be possible to achieve target domain performance on par with source domain performance using only a single labeled example per target category. 
 
