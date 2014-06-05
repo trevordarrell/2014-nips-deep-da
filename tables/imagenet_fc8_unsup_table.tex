@@ -1,6 +1,7 @@
-\begin{table*}
+\begin{table}
 %\begin{tabular}{c c}
 \begin{subtable}{0.4\linewidth}
+\centering
 \begin{tabular}{lccc}
 \toprule
 Adaptation & \multicolumn{2}{c}{\underline{Source Domain}} \\
@@ -11,9 +12,13 @@ source only & $55.5 \pm 0.2$ & $45.2 \pm 1.4$ \\
 DSA  & $55.4 \pm 0.4$ & $46.1 \pm 2.0$ \\
 \bottomrule
 \end{tabular}
+\caption{Unsupervised Adaptation}
+\label{table:imgnet_unsuper}
 \end{subtable}
 %&
+\hfill
 \begin{subtable}{.5\linewidth}
+\centering
 \hspace{1cm}
 \begin{tabular}{lcc c}
 \toprule
@@ -29,10 +34,9 @@ DFE & {$\bm{69.9 \pm 1.5}$} & $64.5 \pm 1.3$ \\
 \end{tabular}
 %\\ & \\
 %(a) Unsupervised Adaptation & (b) Supervised Adaptation
-
-\end{tabular}
+\caption{Supervised Adaptation}
+\label{table:imgnet_super}
 \end{subtable}
-%\caption{Adapting from a pre-trained ImageNet classifier to a new task label set.\jh{fix this caption}}
 \caption{Comparison of using ImageNet source domain instead of a smaller source domain from the \emph{Office} dataset. We report here 31-way multiclass accuracy on Webcam as target domain, averaged over 5 random train/test splits. (a) Unsupervised adaptation (b) Supervised adaptation using 1 labeled example per category in the Webcam domain.}
 \label{tab:imagenet_fc8}
-\end{table*}
+\end{table}
