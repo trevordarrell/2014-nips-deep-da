@@ -83,13 +83,10 @@ In practice, it is NP-hard to find the optimal hyperplane, so we use a computati
 close approximation to the A-distance metric which was introduced by Ben-David et al~\cite{adist-comp}, 
 where the optimal hyperplane is replaced by the classifier model parameter learned from a linear SVM.
 
-Once we have selected which layer to use, we then add an adaptation layer to
-the top of the architecture, as indicated in Figure~\ref{fig:model-adapt}. This layer
+Once we have selected which layer to use, we then add an adaptation layer above
+the selected layer, as indicated in Figure~\ref{fig:model-adapt}. This layer
 consists of an adaptation technique which combines the source and target
-training data, then learns a linear classifier. In this paper, we look to the
-standard domain adaptation literature and experiment using a variety of those
-techniques. The key being that we need to use approaches that can operate with little or no
-target training data.
+training data, then learns a linear classifier.
 
 We explore three adaptation setups:
 \begin{itemize}
@@ -102,11 +99,11 @@ We explore three adaptation setups:
     and target specific dimensions as well as a set of common dimensions.
 
   \item \textbf{Deep Late Fusion (DLF)}
-    An alternative to DFE involves learning source and target specific layers
-    independently and then learning an adaptation layer to combine them
-    afterwards. One example adaptation approach that fits in the late fusion
-    framework is to simply take a linear combination of the source and target
-    output activations.
+    An alternative to DFE involves learning source and target specific
+    adaptation layers independently and then learning an adaptation layer to
+    combine them afterwards. One example adaptation approach that fits in the
+    late fusion framework is to simply take a linear combination of the source
+    and target output activations.
 
   \item \textbf{Deep Subspace Alignment (DSA)}
     For the unsupervised adaptation setting, we choose to use a recently
