@@ -26,13 +26,19 @@
 %Many methods have been proposed for visual domain adaptation. 
 % \ks{similar edit as in intro, see if this make sense}
 
-We propose a general framework for selectively adapting the parameters of a
-convolutional neural network (CNN) whose representation and classifier weights
-are trained on a large-scale source domain, such as ImageNet. 
+We propose learning a supervised deep CNN using a large amount of
+source data. Then, we fix the network and train a new final adaptation layer
+that takes as input the activations from both the source and target data. By
+using this hybrid approach we utilize the strong representation available from
+the supervised deep model trained on a large source dataset while requiring only
+enough target labeled data to train a shallow model with far fewer parameters.
+%Here, we present a general framework for selectively adapting the parameters of a
+%convolutional neural network (CNN) whose representation and classifier weights
+%are trained on a large-scale source domain, such as ImageNet. 
+
 We begin by pre-training a supervised CNN using the architecture proposed by 
 Krizhevsky et al~\cite{supervision}. This network has shown state of the art
 performance for image classification and offers a strong starting model.
-
 At test time, we assume we will receive data from the target domain. Therefore, we seek to 
 learn to adapt the CNN so that it performs well on the target tasks. Unfortunately,
 our CNN architecture contains millions of parameters and in many adaptation 
@@ -42,6 +48,8 @@ network and learn a single adaptation layer that takes as input
 the activations from the fixed network for the target training data as well as an auxiliary labeled
 dataset which is available to us at adaptation time (source data). The source data
 can be (but isn't necessarily) the same data that was used to pre-train the network.
+This auxiliary source data will be used to adapt to the final target domain, and
+provides more training examples than would otherwise be available from the limited target domain.
 
 Figure~\ref{fig:model-adapt} illustrates our proposed framework for adapting a deep CNN 
 with limited target data. We depict the transfer of all pre-trained layers to the final adapted model 
