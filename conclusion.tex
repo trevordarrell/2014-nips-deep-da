@@ -1,14 +1,18 @@
 % conclusion
 In this paper, we presented the first evaluation of domain adaptation from a
-large-scale source dataset with deep features. We demonstrated that, although using ImageNet as a
-source domain generalizes better than other smaller source domains, there is
-still a domain shift when adapting to other visual domains.
+large-scale source dataset with deep features. We demonstrated that, although
+using ImageNet as a source domain generalizes better than other smaller source
+domains, there is still a domain shift when adapting to other visual domains.
 
-Our experimental results show that deep adaptation methods can go a long
-way in mitigating the effects of this domain shift. Based on our results, we
-also provided a set of practical recommendations for choosing a feature
-representation and adaptation method accounting for constraints on runtime and
-accuracy.
+We also proposed a simple yet novel deep domain adaptation framework, as well as
+three particular methods DFE, DLF, and DSA, inspired by classic domain
+adaptation methods~\cite{daume, sa}. Our methods incorporate A-distance to
+non-parametrically select a layer that will provide strong adaptation
+performance. We show that our methods outperform the standard method of adapting
+a convolutional network via fine tuning in the setting where a limited number of
+labeled target examples are available.
+
+\et{I think everything after this is outdated.}
 
 There are a number of interesting directions to take given our results. First we
 notice that though DeCAF$_8$ is the strongest feature to use for learning a
