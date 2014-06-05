@@ -56,7 +56,9 @@ ImageNet~\cite{ilsvrc2012} is the largest available dataset of image category la
  Each method is evaluated across 20 random train/test splits, and we report averages and standard errors for each setting. 
 For each random train/test split we choose one example for training and 10 other examples for testing (so there is a balanced test set across categories). Therefore, each test split has 160 examples. The unsupervised adaptation methods operate in a transductive setting, so the target subspaces are learned from the unlabeled test data.
 
-In all experiments, we use the fully trained deep CNN model described in Section~\ref{sec:decaf}, and extract feature representations from the three different fully connected layers of the CNN. We then compute the A-distance between the source and target data at each layer and choose to adapt at the layer with the lower A-distance. We then train a source classifier using these features on one of two source domains, and adapt to the target domain. For all of our experiments, the 8th network layer ending up having the lower A-distance, so we choose that layer to start our adaptation. In general, we suspect that a previous layer may have lower A-distance for a more complex target domain scenario, but the Office dataset is very small and specialized.
+In all experiments, we use the fully trained deep CNN model described in Section~\ref{sec:decaf}, and extract feature representations from the three different fully connected layers of the CNN. We then compute the A-distance between the source and target data at each layer and choose to adapt at the layer with the lower A-distance. We then train a source classifier using these features on one of two source domains, and adapt to the target domain. For all of our experiments, the 8th network layer ending up having the lower A-distance, so we choose that layer to start our adaptation.
+This confirmed our intuition that the igher layers have greater semantic invariance, and thus greater domain invariance.
+We expect that a lower layer may produce a lower A-distance for a more complex target domain scenario than that found in the benchmark Office dataset.
 
 %The source domains we consider are either the Amazon domain, or the corresponding 16-category ImageNet subset where each category has many more examples.
 %We focus on the Webcam domain as our target (test) domain, as Amazon-to-Webcam  was shown to be the only challenging shift in \cite{deeplearning-arxiv-2013} (the DSLR domain is much more similar to Webcam and did not require adaptation when using deep mid-level features). This combination exemplifies the shift from online web images to real-world images taken in typical office/home environments.
@@ -130,8 +132,8 @@ examples per category~\cite{saenko-eccv10,gong-cvpr12}
 
 
 We begin by evaluating our framework and adaptation algorithm on the standard \emph{Office} dataset benchmark
-for both semi-supervised and unsupervised adaptation. We compare in both scenarios against four recently published methods
-to give context to the space. We report our results on all 6 domain shifts possible with the 3 domains. Each of the previous methods only reported for the 3/6 possible shifts. 
+for both semi-supervised and unsupervised adaptation. We compare in both scenarios against four recently published methods.
+We report our results on all 6 domain shifts possible with the 3 domains. Each of the previous methods only reported for the 3/6 possible shifts. 
 
 The semi-supervised adaptation setting results are shown in Table~\ref{table:full-semi} and the unsupervised adaptation results are shown in Table~\ref{table:full-unsuper}. We notice that our algorithm dramatically outperforms most of the competing methods with the exception of DLID on the webcam to dlsr shift in the semi-supervised setting. These domains are very similar (only a resolution and lighting shift) and so would likely benefit from an adaptation approach that favors the source domain more than our weighting scheme does. 
 
