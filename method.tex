@@ -18,7 +18,7 @@
 \begin{center}
 \includegraphics[width=.6\linewidth]{figs/model-adapt}
 \end{center}
-\caption{Our proposed framework for adaptation. We pre-train a supervised CNN using a large labeled source dataset (ImageNet). We then learn a model for use in the target domain by transferring the CNN parameters and training a new adaptation layer with source data and labeled (or unlabeled) target data.}
+\caption{Our proposed framework for adaptation. We train a supervised CNN using a large labeled source dataset e.g. ImageNet, and use this to define the feature space. We then learn a model for use in the target domain by transferring the CNN parameters and training a new adaptation layer using the network activations for the source data and labeled (or unlabeled) target data.}
 \label{fig:model-adapt}
 \end{figure}
 
@@ -27,7 +27,7 @@
 % \ks{similar edit as in intro, see if this make sense}
 
 We propose learning a supervised deep CNN using a large amount of
-source data. Then, we fix the network and train a new final adaptation layer
+data from a relevant task to learn a representation. Then, we fix the network and train a new adaptation layer
 that takes as input the activations from both the source and target data. By
 using this hybrid approach we utilize the strong representation available from
 the supervised deep model trained on a large source dataset while requiring only
@@ -36,26 +36,21 @@ enough target labeled data to train a shallow model with far fewer parameters.
 %convolutional neural network (CNN) whose representation and classifier weights
 %are trained on a large-scale source domain, such as ImageNet. 
 
-We begin by pre-training a supervised CNN using the architecture proposed by 
+We begin by training a supervised CNN using the architecture proposed by 
 Krizhevsky et al~\cite{supervision}. This network has shown state of the art
 performance for image classification and offers a strong starting model.
-At test time, we assume we will receive data from the target domain. Therefore, we seek to 
-learn to adapt the CNN so that it performs well on the target tasks. Unfortunately,
-our CNN architecture contains millions of parameters and in many adaptation 
-scenarios we have few or no labeled examples available at training time from the
-target domain. Therefore, we fix the bottom-layer parameters in our
+We fix the bottom-layer parameters in the
 network and learn a single adaptation layer that takes as input
 the activations from the fixed network for the target training data as well as an auxiliary labeled
 dataset which is available to us at adaptation time (source data). The source data
-can be (but isn't necessarily) the same data that was used to pre-train the network.
+can be (but isn't necessarily) the same data that was used to learn the representation.
 This auxiliary source data will be used to adapt to the final target domain, and
 provides more training examples than would otherwise be available from the limited target domain.
 
-Figure~\ref{fig:model-adapt} illustrates our proposed framework for adapting a deep CNN 
-with limited target data. We depict the transfer of all pre-trained layers to the final adapted model 
-for simplicity of presentation,  however, in general, there is no reason to assume a priori that 
-adding the adaptation layer after all pre-trained layers is the best approach.  Instead, we choose
-the number of layers to transfer as a function of the source and target data.
+Figure~\ref{fig:model-adapt} illustrates our proposed framework for adapting a deep CNN
+with limited target data. We depict the transfer of all pre-trained layers to the final adapted model
+for simplicity of presentation,  however, in general, there is no reason to assume a priori that
+adding the adaptation layer after all pre-trained layers is the best approach.
 
 Intuitively, when selecting a layer to use for adaptation, we would like to use
 the one in which the source and target appear the most similar (and thus
