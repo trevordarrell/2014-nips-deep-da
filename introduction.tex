@@ -63,10 +63,21 @@ data compared to the several thousand images available for the largest domain in
 Office.
 
 % \ks{I tried to describe our approach in a more novel way than just evaluating existing DA methods, and present fine-tuning as the obvious 'baseline'}
-We find that it is better to adapt from ImageNet than from previous smaller source domains, but  that dataset bias nonetheless remains a major issue. Fine-tuning the parameters on the small amount of labeled target data (we consider one-shot adaptation) turns out to be unsurprisingly problematic. Thus, for our second contribution, we instead propose a simple yet intuitive adaptation framework that integrates existing domain adaptation techniques with the deep architecture. We train a final domain-adapted classification ``layer'' using the activations from the network layer that minimizes the domain shift. 
-We provide a comprehensive evaluation of existing methods for classifier adaptation.
-The good news is, when adapting from ImageNet to Office, it turns out to be possible to achieve target domain performance on par with source domain performance using only a single labeled example per target category.
-Our method also exceeds all previously published results on the standard benchmark Office adaptation task.
+We find that it is better to adapt from ImageNet than from previous smaller
+source domains, but that dataset bias nonetheless remains a major
+issue. Fine-tuning the parameters on the small amount of labeled target data (we
+consider one-shot adaptation) turns out to be unsurprisingly problematic. Thus,
+for our second contribution, we instead propose a simple yet intuitive
+adaptation framework that integrates existing domain adaptation techniques with
+the deep architecture.  First, we use the A-distance metric~\cite{adist} to
+select the layer from the trained CNN that minimizes the shift between the source
+and target domains.  We then train a final domain-adapted classification
+``layer'' using the activations from the selected network layer.  We provide a
+comprehensive evaluation of existing methods for classifier adaptation.  The
+good news is, when adapting from ImageNet to Office, it turns out to be possible
+to achieve target domain performance on par with source domain performance using
+only a single labeled example per target category.  Our method also exceeds all
+previously published results on the standard benchmark Office adaptation task.
 
 We examine both the setting where there are a few labeled examples from the target domain (\emph{supervised adaptation}) and the setting where there are no labeled target examples (\emph{unsupervised adaptation}). We also describe practical solutions for choosing between the various adaptation methods based on experimental constraints such as limited computation time. 
 %quickly adding a new category at test time without retraining the large dataset, etc.
