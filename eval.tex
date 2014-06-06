@@ -27,34 +27,34 @@ distinct domains: Amazon, DSLR, and Webcam. The 31 categories in the dataset
 consist of objects commonly encountered in office settings, such as keyboards,
 file cabinets, and laptops. 
 
-Of these 31 categories, 16 overlap with the
-categories present in the 1000-category ImageNet classification task\footnote{
-The 16 overlapping categories are
-\textit{backpack},
- \textit{bike helmet},
- \textit{bottle},
- \textit{desk lamp},
- \textit{desktop computer},
- \textit{file cabinet},
- \textit{keyboard},
- \textit{laptop computer},
- \textit{mobile phone},
- \textit{mouse},
- \textit{printer},
- \textit{projector},
- \textit{ring binder},
- \textit{ruler},
- \textit{speaker},
- and
- \textit{trash can}.
-}.
-ImageNet~\cite{ilsvrc2012} is the largest available dataset of image category labels. We use 1000 categories' worth of data (1.2M images) to train the network, and use the 16 categories that overlap with Office (approximately 1200 examples per category or  $\approx$20K images total) as labeled source classifier data.
+%Of these 31 categories, 16 overlap with the
+%categories present in the 1000-category ImageNet classification task\footnote{
+%The 16 overlapping categories are
+%\textit{backpack},
+% \textit{bike helmet},
+% \textit{bottle},
+% \textit{desk lamp},
+% \textit{desktop computer},
+% \textit{file cabinet},
+% \textit{keyboard},
+% \textit{laptop computer},
+% \textit{mobile phone},
+% \textit{mouse},
+% \textit{printer},
+% \textit{projector},
+% \textit{ring binder},
+% \textit{ruler},
+% \textit{speaker},
+% and
+% \textit{trash can}.
+%}.
+ImageNet~\cite{ilsvrc2012} is the largest available dataset of image category labels. We use 1000 categories' worth of data (1.2M images) to train the network, and use the 31 categories that overlap with Office (approximately 1200 examples per category or  $\approx$37K images total) as labeled source classifier data.
 
 
 \subsection{Experimental Setup \& Baselines}
 
  Each method is evaluated across 20 random train/test splits, and we report averages and standard errors for each setting. 
-For each random train/test split we choose one example for training and 10 other examples for testing (so there is a balanced test set across categories). Therefore, each test split has 160 examples. The unsupervised adaptation methods operate in a transductive setting, so the target subspaces are learned from the unlabeled test data.
+For each random train/test split we choose either one or three target training examples per category (as indicated) and use the rest for training.  The unsupervised adaptation methods operate in a transductive setting, so the target subspaces are learned from the unlabeled test data.
 
 In all experiments, we use the fully trained deep CNN model described in Section~\ref{sec:decaf}, and extract feature representations from the three different fully connected layers of the CNN. We then compute the A-distance between the source and target data at each layer and choose to adapt at the layer with the lower A-distance. We then train a source classifier using these features on one of two source domains and adapt to the target domain. For all of our experiments, the highest network layer ended up producing the lowest A-distance.
 This confirms our intuition that the higher layers have greater semantic invariance, and thus greater domain invariance. Thus, all of our experiments use that layer for adaptation.
@@ -100,7 +100,7 @@ However, we expect that a lower layer may produce a lower A-distance for a more 
 %First, the C value used for C-SVM in the classifier for all methods is set to $C=1$. Without any validation data we are not able to tune this parameter properly, so we choose to leave it as the default value. Since all methods we report require setting of this parameter, we feel that the relative comparisons between methods is sound even if the absolute numbers could be improved with a new setting for C.
 %\begin{itemize}
   %\item{
-  For the semi-supervised early fusion adaptation method, which looks at the source and target data
+  For the supervised early fusion adaptation method, which looks at the source and target data
   simultaneously, we weight 
   the data points such that the constraints from the source and target domains
  effectively contribute equally to the optimization problem.  Specifically,
@@ -128,15 +128,15 @@ In our experiments using the full Office dataset (31 categories),
 we follow the standard training protocol for this dataset of using 20 source
 examples per category~\cite{saenko-eccv10,gong-cvpr12}
  for the Amazon source domain and 8 images per category for Webcam or
- Dslr as the source domains. For the semi-supervised adaptation setting 
+ Dslr as the source domains. For the supervised adaptation setting 
  we assume 3 labeled target examples per category.
 
 
 We begin by evaluating our framework and adaptation algorithm on the standard \emph{Office} dataset benchmark
-for both semi-supervised and unsupervised adaptation. We compare in both scenarios against four recently published methods.
+for both supervised and unsupervised adaptation. We compare in both scenarios against four recently published methods.
 We report our results on all 6 domain shifts possible with the 3 domains. Each of the previous methods only reported for the 3/6 possible shifts. 
 
-The semi-supervised adaptation setting results are shown in Table~\ref{table:full-semi} and the unsupervised adaptation results are shown in Table~\ref{table:full-unsuper}. We notice that our algorithm dramatically outperforms most of the competing methods with the exception of DLID on the webcam to dlsr shift in the semi-supervised setting. These domains are very similar (only a resolution and lighting shift) and so would likely benefit from an adaptation approach that favors the source domain more than our weighting scheme does. 
+The supervised adaptation setting results are shown in Table~\ref{table:full-semi} and the unsupervised adaptation results are shown in Table~\ref{table:full-unsuper}. We notice that our algorithm dramatically outperforms most of the competing methods with the exception of DLID on the webcam to dlsr shift in the supervised setting. These domains are very similar (only a resolution and lighting shift) and so would likely benefit from an adaptation approach that favors the source domain more than our weighting scheme does. 
 
 \input{tables/full_office_table}
 
@@ -192,15 +192,15 @@ The distinct improvement of our method demonstrates that we are successfully abl
 
 We now address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow mostly the same experimental paradigm as the previous experiment, with the only differences being that we use 5 train/test splits instead of 20, and we use ImageNet as our source dataset.
 We investigate using the webcam domain as our target since it is the most distinct from ImageNet. 
-Additionally, we only use one labeled target example for the semi-supervised adaptation experiment. We do this to determine how useful a labeled target example is during adaptation. If there is very little bias between ImageNet and the webcam domain, then a single target example would not provide much adaptation benefit.
+Additionally, we only use one labeled target example for the supervised adaptation experiment. We do this to determine how useful a labeled target example is during adaptation. If there is very little bias between ImageNet and the webcam domain, then a single target example would not provide much adaptation benefit.
 The results for unsupervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(a), and the results for supervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(b). % TODO fix reference
 \input{tables/imagenet_fc8_unsup_table}
 %\input{tables/imagenet_fc8_sup_table}
 
-Interestingly, we find that we are not able to adapt in the unsupervised scenario, however, even with a single labeled target example per category (16 images total!), we are able to produce a dramatic performance boost -- 56\% up to 70\% multi class accuracy.
+Interestingly, we find that we are not able to adapt in the unsupervised scenario, however, even with a single labeled target example per category (31 images total!), we are able to produce a dramatic performance boost -- 56\% up to 70\% multi class accuracy.
 
 We also investigate how performance varies as we allow ourselves access to more labeled data in the target domain. We plot performance of both the target only baseline and DFE as we vary the number of labeled target examples in Figure~\ref{fig:vary_num_target}.
-As the results indicate, DFE provides a significant edge over the simple non-adaptive baseline for 4 or fewer labeled examples in the target domain. Thus, even when we do not limit ourselves to the extreme setting of only one labeled target example, using DFE continues to be effective.
+As the results indicate, DFE provides a significant edge over the simple non-adaptive baseline for 4 or fewer labeled examples in the target domain. Thus, even when we do not limit ourselves to the extreme setting of only one labeled target example, using DFE continues to be effective. For a more complex target domain the benefit would likely continue with even more target examples.
 
 % \ks{this paragraph is easy to lose.. isn't this the main point of the paper?}
 %\et{This paragraph also needs to be redone with FC8.}
