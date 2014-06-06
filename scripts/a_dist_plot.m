@@ -37,8 +37,9 @@ haxes2 = axes('Position', haxes1_pos, ...
 ylabel('Imagenet-Webcam A-Distance', 'FontSize', 20);
 linkaxes([haxes1, haxes2], 'x');
 hold on;
-p2 = plot(X, a_dist, 'Parent', haxes2, 'LineWidth', 3);
+p2 = plot(X, a_dist, '--', 'Parent', haxes2, 'LineWidth', 3);
+ylim([1.14, 1.32]);
 
-%legend([p1, p2], 'test1', 'test2', 'Location', 'NorthWest');
+legend([p1, p2], 'Multiclass Accuracy', 'A-Distance', 'Location', 'NorthWest');
 %legend boxoff;
 set(gca, 'FontSize', 18);
