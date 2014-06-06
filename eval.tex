@@ -189,18 +189,17 @@ The distinct improvement of our method demonstrates that we are successfully abl
   \label{fig:vary_num_target}
 \end{figure}
 
-We now address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow the same experimental paradigm of taking 20 random train/test splits as the previous experiment, but use ImageNet as our source dataset and limit ourselves to the 
-16 overlapping classes between ILSVRC2012 and \emph{Office}.  We use the webcam domain as our target since it is the most distinct from ImageNet. 
+We now address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? To begin to answer this question we follow mostly the same experimental paradigm as the previous experiment, with the only differences being that we use 5 train/test splits instead of 20, and we use ImageNet as our source dataset.
+We investigate using the webcam domain as our target since it is the most distinct from ImageNet. 
 Additionally, we only use one labeled target example for the semi-supervised adaptation experiment. We do this to determine how useful a labeled target example is during adaptation. If there is very little bias between ImageNet and the webcam domain, then a single target example would not provide much adaptation benefit.
-
-\jh{Do we have the plot of varying the number of target examples with imagenet as source?}
-\et{Yes, in Figure~\ref{fig:vary_num_target}}
-
-The results are for unsupervised adaptation is shown in Table~\ref{tab:imagenet_fc8}(a) and for supervised adaptation is shown in Table~\ref{tab:imagenet_fc8}(b). % TODO fix reference
+The results for unsupervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(a), and the results for supervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(b). % TODO fix reference
 \input{tables/imagenet_fc8_unsup_table}
 %\input{tables/imagenet_fc8_sup_table}
 
 Interestingly, we find that we are not able to adapt in the unsupervised scenario, however, even with a single labeled target example per category (16 images total!), we are able to produce a dramatic performance boost -- 66\% up to 77\% multi class accuracy.
+
+We also investigate how performance varies as we allow ourselves access to more labeled data in the target domain. We plot performance of both the target only baseline and DFE as we vary the number of labeled target examples in Figure~\ref{fig:vary_num_target}.
+As the results indicate, DFE provides a significant edge over the simple non-adaptive baseline for 4 or fewer labeled examples in the target domain. Thus, even when we do not limit ourselves to the extreme setting of only one labeled target example, using DFE continues to be effective.
 
 % \ks{this paragraph is easy to lose.. isn't this the main point of the paper?}
 %\et{This paragraph also needs to be redone with FC8.}
