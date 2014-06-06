@@ -72,8 +72,10 @@ Though deep convolutional networks have proven to be a competitive approach for 
 Transfer of models directly to new domains without adaptation has historically led to poor recognition performance.
 In this paper, we pose the following question: is a single image dataset, much larger than previously explored for adaptation, comprehensive enough to learn general deep models that may be effectively applied to new image domains? In other words, are deep CNNs trained on large amounts of labeled data as susceptible to dataset bias as previous methods have been shown to be?
 We show that a generic supervised deep CNN model trained on a large dataset reduces, but does not remove, dataset bias on a standard benchmark.
-Furthermore, we propose several methods for adaptation with deep models that are able to operate with little (one example per category) or no labeled domain specific data. In contrast, training or fine-tuning a state-of-the-art deep model on a new domain requires a significant amount of data, which for many applications is simply not available.
-Our experiments show that adaptation of deep models on benchmark visual domain adaptation datasets can provide a significant performance boost.
+Thus, to combat this bias, we also propose a suite of methods for performing adaptation with deep models.
+These methods make use of a domain similarity metric to adaptively select a deep representation that minimizes the shift between visual domains, thereby enabling adaptation with very little labeled domain specific data.
+In contrast, training or fine-tuning a state-of-the-art deep model on a new domain requires a significant amount of data, which for many applications is simply not available.
+Our experiments show that using our proposed adaptation methods boosts performance beyond all previously published results on a standard benchmark visual domain adaptation task.
 
 \end{abstract}
 
