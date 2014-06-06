@@ -135,7 +135,7 @@ examples per category~\cite{saenko-eccv10,gong-cvpr12}
 %We begin by evaluating our framework and adaptation algorithm on the \emph{Office} dataset benchmark for both supervised and unsupervised adaptation, following standard evaluation protocols. 
 We compare in both supervised and unsupervised scenarios against four recently published methods.
 \ks{are these four using deep features, or are we just copying their results?}
-We report our results on all 6 domain shifts possible with the 3 domains, however each of the previous methods only reported for  3/6 possible shifts.
+We report our results on all 6 domain shifts possible with the 3 domains, however each of the previous methods only reported for  3 of the 6 possible shifts.
 
 The supervised adaptation setting results are shown in Table~\ref{table:full-semi} and the unsupervised adaptation results are shown in Table~\ref{table:full-unsuper}. We notice that our algorithm dramatically outperforms most of the competing methods with the exception of DLID on the Webcam to Dlsr shift in the supervised setting. These domains are very similar (only a resolution and lighting shift) and so would likely benefit from an adaptation approach that favors the source domain more than our weighting scheme does. 
 
@@ -143,8 +143,7 @@ The supervised adaptation setting results are shown in Table~\ref{table:full-sem
 
 \input{tables/full_office_table_unsuper}
 
-The distinct improvement of our method demonstrates that we are successfully able to transfer the supervised pre-trained deep CNN parameters to a target domain, and adapt classification models from small-scale source domains. However the question still remains, 
-can training on a large-scale source domain effectively remove bias and hence the need for our adaptation layer altogether? We address this question in our next experiment.
+The distinct improvement of our method demonstrates that we are successfully able to transfer to a new target domain using a selected representation of deep CNN parameters.
 
 %\subsection{Effect of a High Complexity Model}
 
@@ -185,27 +184,28 @@ can training on a large-scale source domain effectively remove bias and hence th
 \subsection{Adapting with a Large Scale Source Domain}
 
 %We now address one of the main questions of this paper: Is there still a domain shift when using a large source dataset such as ImageNet? 
-To begin to answer this question we follow mostly the same experimental paradigm as the previous experiment, with the only differences being that we use 5 train/test splits instead of 20, and we use ImageNet as our source dataset.
+To begin to answer this question we follow mostly the same experimental paradigm as the previous experiment, with the only differences being that we use ImageNet as our source dataset, and we use 5 train/test splits instead of 20.
+We reduce the number of splits for ease of evaluation---since ImageNet is so much larger than any office domains, our adaptation methods take significantly longer to run.
 We investigate using the webcam domain as our target since it is the most distinct from ImageNet. 
-Additionally, we only use one labeled target example for the supervised adaptation experiment. We do this to determine how useful a labeled target example is during adaptation. If there is very little bias between ImageNet and the webcam domain, then a single target example would not provide much adaptation benefit.
+Additionally, we consider a ``one-shot adaptation'' regime and only use one labeled target example for the supervised adaptation experiment. If there is very little bias between ImageNet and the webcam domain, then a single target example will not provide much adaptation benefit.
 The results for unsupervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(a), and the results for supervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(b). % TODO fix reference
 \input{tables/imagenet_fc8_unsup_table}
 
-\begin{figure}[h]
+\begin{wrapfigure}[19]{R}{6cm}
   \begin{center}
-  \includegraphics[width=.48\textwidth]{figs/imagenet_webcam_vary_num_target_examples}
+  \includegraphics[width=.45\textwidth]{figs/imagenet_webcam_vary_num_target_examples}
   \end{center}
   \caption{Multiclass accuracy evaluation on the Imagenet to Webcam shift while varying the number of labeled target examples. DFE stays significantly ahead of the non-adaptive baseline until 5 labeled target examples per category are available (155 labeled examples total).}
   \label{fig:vary_num_target}
-\end{figure}
+\end{wrapfigure}
 
 Training a source only classifier on ImageNet produces 65.1\% test accuracy on ImageNet test data, but as the table shows, this number drops to 55.5\% when we test on Webcam data instead. Thus, it is clear that a domain shift still occurs.
-Interestingly, we find that we are not able to adapt in the unsupervised scenario, however, even with a single labeled target example per category (31 images total!), we are able to produce a dramatic performance boost -- 56\% up to 70\% multi class accuracy.
+Interestingly, we find that we are not able to mprove performance using adaptation in the unsupervised scenario; however, with only a single labeled target example per category (31 images total!), we are able to produce a dramatic performance boost -- 56\% up to 70\% multi class accuracy in the supervised setting.
 
-We also investigate how performance varies as we allow ourselves access to more labeled data in the target domain. We plot performance of both the target only baseline and DFE as we vary the number of labeled target examples in Figure~\ref{fig:vary_num_target}.
+We also investigate how performance varies as we allow ourselves access to more labeled data in the target domain. We plot performance of both the target-only baseline and DFE as we vary the number of labeled target examples in Figure~\ref{fig:vary_num_target}.
 As the results indicate, DFE provides a significant edge over the simple non-adaptive baseline for 4 or fewer labeled examples in the target domain. Thus, even when we do not limit ourselves to the extreme setting of only one labeled target example, using DFE continues to be effective. For a more complex target domain the benefit would likely continue with even more target examples.
 
-It is also worth noting that the test accuracy with ImageNet source data for 3 target examples is 81.2\%, which is lower than the number for the $D \rightarrow W$ shift in Table~\ref{tab:full-semi}.
+It is also worth noting that the test accuracy with ImageNet source data for 3 target examples is 81.2\%, which is lower than the number for the $D \rightarrow W$ shift in Table~\ref{table:full-semi}.
 We suspect this is primarily due to how similar the DSLR and Webcam domains are.
 The takeaway is that, although a large-scale source dataset helps in most cases, if an alternative small-scale source dataset that closely matches the target data exists, it may be preferable to use the smaller source instead.
 
@@ -222,7 +222,7 @@ The takeaway is that, although a large-scale source dataset helps in most cases,
 We also attempted to fine tune the CNN on the target training data as another
 baseline to compare against. However, even with 3 labeled target examples per
 category, as is the standard for the Office dataset, we were unable to improve
-performance beyond the non-adaptive target only baseline, despite trying many
+performance beyond the non-adaptive target-only baseline, despite trying many
 variations of fine-tuning. Our best fine-tuning strategy degraded performance
 from 77\% to 75\%. It appears that 93 labeled images is simply not enough data
 to fine-tune a CNN of this size.
