@@ -11,10 +11,10 @@ Below this threshold, the subspace is less likely to capture all important discr
 
 In the case where we have a large source dataset and a limited number of labeled target examples, it may be preferable to compute source classifier parameters in advance, then examine only the source parameters and the target data at adaptation time.
 This would correspond to using our late fusion approach DLF which is unaffected by the number of data points in the source domain at adaptation time, and can thus be applied quickly.
-However, this method requires setting a hyper parameter. 
+However, this method requires setting a hyperparameter.
 Figure~\ref{fig:linint-eval} shows the performance of linear interpolation Late Fusion as we vary the hyperparameter $\alpha$ (combination parameter).
 Although the method is sensitive to $\alpha$, we found that for both source domains, the basic strategy of setting $\alpha$ around $0.8$ provides a close approximation to optimal performance. 
-This setting can be interpreted as trusting the target classifier more than the source, but not so much as to completely discount the information available from the source classifier. In each table we report the performance of linear interpolation averaged across hyper parameter settings $\alpha \in [0,1]$ for fairness.
+This setting can be interpreted as trusting the target classifier more than the source, but not so much as to completely discount the information available from the source classifier. In each table we report the performance of linear interpolation averaged across hyperparameter settings $\alpha \in [0,1]$ for fairness.
 
 If there are no computational constraints and there are very few labels in
 the target domain, the best-performing method supervised adaptation method is to use our layer selection technique with a classifier trained using the ``frustratingly easy'' approach originally proposed by \daume~\cite{daume}.
