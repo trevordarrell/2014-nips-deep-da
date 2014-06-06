@@ -18,7 +18,7 @@
 \begin{center}
 \includegraphics[width=.6\linewidth]{figs/model-adapt}
 \end{center}
-\caption{Our proposed framework for deep network adaptation. We train a supervised CNN of~\cite{supervision} using a large labeled dataset (ImageNet) of many object categories. We then learn a model of specific categories of interest, for which labeled examples exist in the source domain, adapted to the target domain, which has limited or no category labels. We do this by transferring automatically selected layers of the CNN and learning a new adaptation layer using their activations on source and target data.}
+\caption{Our proposed framework for deep network adaptation. We train a supervised CNN of~\cite{supervision} for representation learning, using a large labeled dataset of many object categories. We then use a task specific labeled source domain to learn models for the specific categories of interest and adapt those models to the target domain which has little or no labeled data.  We do this by transferring automatically selected layers of the CNN and learning a new adaptation layer using their activations on source and target data.}
 \label{fig:model-adapt}
 \end{figure}
 
