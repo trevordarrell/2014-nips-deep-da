@@ -67,14 +67,12 @@ UC Berkeley, EECS \& ICSI\\
 \maketitle
 
 \begin{abstract}
-Dataset bias remains a significant barrier when solving real world computer vision tasks.
+Dataset bias has been a significant barrier when solving real world computer vision tasks.
 Though deep convolutional networks have proven to be a competitive approach for image classification, a question remains: have these models solved the dataset bias problem?
-Transfer of models directly to new domains without adaptation has historically led to poor recognition performance.
-In this paper, we pose the following question: is a single image dataset, much larger than previously explored for adaptation, comprehensive enough to learn general deep models that may be effectively applied to new image domains? In other words, are deep CNNs trained on large amounts of labeled data as susceptible to dataset bias as previous methods have been shown to be?
-We show that a generic supervised deep CNN model trained on a large dataset reduces, but does not remove, dataset bias on a standard benchmark.
-Thus, to combat this bias, we also propose a suite of methods for performing adaptation with deep models.
+We show that a generic supervised deep CNN model trained on a large-scale dataset reduces, but does not remove, dataset bias on a standard benchmark.
+Training or fine-tuning a state-of-the-art deep model on a new domain requires a significant amount of data, which for many applications is simply not available.
+We propose novel methods for performing adaptation with deep models with limited training data.
 These methods make use of a domain similarity metric to adaptively select a deep representation that minimizes the shift between visual domains, thereby enabling adaptation with very little labeled domain specific data.
-In contrast, training or fine-tuning a state-of-the-art deep model on a new domain requires a significant amount of data, which for many applications is simply not available.
 Our experiments show that using our proposed adaptation methods boosts performance beyond all previously published results on a standard benchmark visual domain adaptation task.
 
 \end{abstract}
