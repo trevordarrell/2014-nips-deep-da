@@ -133,8 +133,7 @@ examples per category~\cite{saenko-eccv10,gong-cvpr12}
  Dslr as the source domains. For the supervised adaptation setting 
  we assume 3 labeled target examples per category.
 %We begin by evaluating our framework and adaptation algorithm on the \emph{Office} dataset benchmark for both supervised and unsupervised adaptation, following standard evaluation protocols. 
-We compare in both supervised and unsupervised scenarios against four recently published methods.
-\ks{are these four using deep features, or are we just copying their results?}
+We compare in both supervised and unsupervised scenarios against the numbers reported by four recently published methods.
 We report our results on all 6 domain shifts possible with the 3 domains, however each of the previous methods only reported for  3 of the 6 possible shifts.
 
 The supervised adaptation setting results are shown in Table~\ref{table:full-semi} and the unsupervised adaptation results are shown in Table~\ref{table:full-unsuper}. We notice that our algorithm dramatically outperforms most of the competing methods with the exception of DLID on the Webcam to Dlsr shift in the supervised setting. These domains are very similar (only a resolution and lighting shift) and so would likely benefit from an adaptation approach that favors the source domain more than our weighting scheme does. 
@@ -191,11 +190,12 @@ Additionally, we consider a ``one-shot adaptation'' regime and only use one labe
 The results for unsupervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(a), and the results for supervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(b). % TODO fix reference
 \input{tables/imagenet_fc8_unsup_table}
 
-\begin{wrapfigure}[19]{R}{6cm}
+\begin{wrapfigure}[18]{R}{6cm}
+  \vspace{-3em}
   \begin{center}
   \includegraphics[width=.45\textwidth]{figs/imagenet_webcam_vary_num_target_examples}
   \end{center}
-  \caption{Multiclass accuracy evaluation on the Imagenet to Webcam shift while varying the number of labeled target examples. DFE stays significantly ahead of the non-adaptive baseline until 5 labeled target examples per category are available (155 labeled examples total).}
+  \caption{Multiclass accuracy evaluation on the Imagenet to Webcam shift while varying the number of labeled target examples. DFE stays significantly ahead of the non-adaptive baseline until 155 labeled target examples are available (5 examples per category).}
   \label{fig:vary_num_target}
 \end{wrapfigure}
 
