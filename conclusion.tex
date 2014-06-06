@@ -14,30 +14,4 @@ number of labeled target examples are available. We also demonstrated that our
 methods achieve state-of-the-art performance on the standard visual domain
 adaptation benchmark.
 
-\et{I think everything after this is outdated.}
-
-There are a number of interesting directions to take given our results. First we
-notice that though DeCAF$_8$ is the strongest feature to use for learning a
-classifier on ImageNet data, DeCAF$_7$ is actually a better feature to use with
-the Amazon source domain and the Webcam target domain. This could lead to a
-hybrid approach where one uses different feature representations for the various
-domains and produces a combined adapted model. Also, our work primarily explored
-adaptation using the representations from the higher levels of a deep
-model. However, it is possible that adaptation using representations from a
-lower layer could yield improved performance in certain settings. Investigating
-this would require new adaptation techniques to handle the high dimensional,
-spatially structured representations in the lower layers of the model. Another
-interesting direction that should be explored is to integrate the adaptation
-algorithms into the deep models explicitly and even allow for feedback between
-the two stages. Current deep models although allow information flow between the
-final classifier and the representation learning architecture. We feel that the
-next step is to have a separate task specific adaptable layer that does not
-simply learn a new final layer, but instead learns a separate, but equivalent
-final layer, that is regularized by the final layer learned on the source
-dataset.
-
-This future work is a natural extension of the result we have shown in this
-paper: that pre-trained deep representations with large source domains can be
-effectively adapted to new target domains using only shallow, linear adaptation
-methods, and that in cases where the target data is limited, this approach is
-the best way to mitigate dataset bias.
+\et{Discuss future work. Novel categories, probably. What else?}

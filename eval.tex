@@ -197,7 +197,7 @@ The results for unsupervised adaptation are shown in Table~\ref{tab:imagenet_fc8
 \input{tables/imagenet_fc8_unsup_table}
 %\input{tables/imagenet_fc8_sup_table}
 
-Interestingly, we find that we are not able to adapt in the unsupervised scenario, however, even with a single labeled target example per category (16 images total!), we are able to produce a dramatic performance boost -- 66\% up to 77\% multi class accuracy.
+Interestingly, we find that we are not able to adapt in the unsupervised scenario, however, even with a single labeled target example per category (16 images total!), we are able to produce a dramatic performance boost -- 56\% up to 70\% multi class accuracy.
 
 We also investigate how performance varies as we allow ourselves access to more labeled data in the target domain. We plot performance of both the target only baseline and DFE as we vary the number of labeled target examples in Figure~\ref{fig:vary_num_target}.
 As the results indicate, DFE provides a significant edge over the simple non-adaptive baseline for 4 or fewer labeled examples in the target domain. Thus, even when we do not limit ourselves to the extreme setting of only one labeled target example, using DFE continues to be effective.
@@ -212,7 +212,14 @@ As the results indicate, DFE provides a significant edge over the simple non-ada
 
 %In addition, unsupervised adaptation approaches are more effective than for the smaller source domain experiment. 
 
-\jh{Explain how fine-tuning doesn't work here. If we don't allow the net to change at all then we won't get worse, but never get better... How best to show this? -- we have numbers to back this up, but that may not be useful}
+\et{I left the following paragraph kind of vague. Is this a problem?}
+
+We also attempted to fine tune the CNN on the target training data as another
+baseline to compare against. However, even with 3 labeled target examples per
+category, as is the standard for the Office dataset, we were unable to improve
+performance beyond the non-adaptive target only baseline, despite trying many
+variations of fine-tuning. It appears that 93 labeled images is simply not
+enough data to fine-tune a CNN of this size.
 
 \subsection{Analysis and Practical Considerations}
 \label{sec:analysis}
