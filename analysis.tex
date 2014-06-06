@@ -4,7 +4,7 @@ that traditional domain adaptation methods go a long way in increasing performan
 Depending on the characteristics of the problem at hand, our results suggest different methods may be most suitable.
 
 If no labels exist in the target domain, then there are unsupervised adaptation algorithms that are easy to use and fast to compute at adaptation time, yet still achieve increased performance over source-only methods. 
-For this scenario, we experimented a subspace alignment based method DSA that requires setting a parameter that indicates the dimensionality of the input subspaces. 
+For this scenario, we experimented with a subspace alignment based method DSA that requires setting a parameter that indicates the dimensionality of the input subspaces. 
 Figure~\ref{fig:sagfk-eval} shows the effect that changing the subspace dimensionality has on the overall method performance. 
 In general, we noticed that these methods were not particularly sensitive to this parameter so long as the dimensionality remains larger than the number of categories in our label set.
 Below this threshold, the subspace is less likely to capture all important discriminative information needed for classification.
@@ -22,4 +22,4 @@ the target domain, the best-performing method semi-supervised adaptation method 
 We conclude with an experimental verification of our A-distance layer selection strategy.
 For each choice of layer from the CNN, we computed the A-distance between Imagenet and the webcam Office domain, and compared it to the multiclass performance of DFE for that domain shift.
 The results of this experiment can be seen in Figure~\ref{fig:a-dist-eval}.
-At least for this particular domain shift, A-distance appears strongly inversely correlated with the multiclass accuracy of DFE, thereby validating our layer selection strategy.
+At least for this particular domain shift, A-distance appears strongly inversely correlated with the multiclass accuracy of DFE, thereby validating our layer selection strategy. \ks{earlier we said for all experiments last layer was best, can we support that here?}
