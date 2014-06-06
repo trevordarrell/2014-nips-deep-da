@@ -17,8 +17,7 @@ Although the method is sensitive to $\alpha$, we found that for both source doma
 This setting can be interpreted as trusting the target classifier more than the source, but not so much as to completely discount the information available from the source classifier. In each table we report the performance of linear interpolation averaged across hyper parameter settings $\alpha \in [0,1]$ for fairness.
 
 If there are no computational constraints and there are very few labels in
-the target domain, the best-performing method semi-supervised adaptation method is to use our early fusion technique with a classifier trained using the ``frustratingly easy'' approach originally proposed by \daume~\cite{daume} and applied again for
-unsupervised deep models in \cite{ref:dlid}.
+the target domain, the best-performing method semi-supervised adaptation method is to use our early fusion technique with a classifier trained using the ``frustratingly easy'' approach originally proposed by \daume~\cite{daume}.
 
 We conclude with an experimental verification of our A-distance layer selection strategy.
 For each choice of layer from the CNN, we computed the A-distance between Imagenet and the webcam Office domain, and compared it to the multiclass performance of DFE for that domain shift.
