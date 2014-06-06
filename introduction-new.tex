@@ -28,6 +28,7 @@ Theoretical \cite{ben2007analysis, blitzer2007learning} and practical results \c
 Many visual domain adaptation methods have been put forth to compensate for dataset bias \cite{daume,yang-icdm07,aytar-iccv11,saenko-eccv10,kulis-cvpr11,Khosla-eccv12,gopalan-iccv11,gong-cvpr12,hoffman-eccv12,hoffman-iclr13}, but are limited to shallow models. For deep models, fine-tuning is the most prevalent approach for supervised adaptation to novel tasks (see \cite{rcnn} for a recent example). 
 
 In this paper, we ask, \textit{Is fine-tuning the answer to domain adaptation with limited labeled target data?}
+\jd{I suggest rewording "answer to domain adaptation": Is fine-tuning the answer to the problem of domain shift with limited labeled target data?}
 In fact, fine-tuning a deep network's parameters on a small amount of labeled target data turns out to be unsurprisingly
 problematic. We instead propose a simple yet intuitive adaptation framework that integrates existing shallow domain adaptation techniques with the deep architecture.
 First, we use the A-distance metric~\cite{adist} to select the layer from the
@@ -45,8 +46,8 @@ Recent work by Rodner et al.~\cite{rodner-arxiv13} attempted to adapt from Image
 
 We use the 1.2 million
 labeled images available in the 2012 ImageNet 1000-way classification
-dataset~\cite{ilsvrc2012} to train the representation in \cite{supervision}, and  $\approx$1200 labeled images per category as the source of category labels.
-This constitutes an order of magnitude increase in category-labeled source data compared to the  $\approx$100 labeled images per category in largest domain in Office.  We find that in most cases it is better to adapt from large-scale source domains, but that dataset bias nonetheless remains a major issue.
+dataset~\cite{ilsvrc2012} to train the representation in \cite{supervision}, and about 1200 labeled images per category as the source of category labels.
+This constitutes an order of magnitude increase in category-labeled source data compared to the approximately 100 labeled images per category of the largest domain in Office.  We find that in most cases it is better to adapt from large-scale source domains, but that dataset bias nonetheless remains a major issue.
 The good news is, when adapting
 from ImageNet to Office, it turns out to be possible to achieve target domain
 performance on par with source domain performance using only a single labeled
