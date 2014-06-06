@@ -1,0 +1,57 @@
+
+Supervised deep convolutional neural networks (CNNs) trained on large-scale
+classification tasks have been shown to learn impressive mid-level structures
+and obtain high levels of performance on contemporary classification
+challenges \cite{ilsvrc2012,zeiler-arxiv-2013}. These models generally assume
+extensive training using labeled data, and testing is limited to data from the
+same domain. In practice, however, the images we would like to classify are
+often produced under different imaging conditions or drawn from a different
+distribution, leading to a domain shift. Scaling such models to new domains
+remains an open challenge.
+
+Deep CNNs require large amounts of training data to learn
+good mid-level convolutional models and final fully-connected classifier
+stages. While the continuing expansion of web-based datasets like
+ImageNet \cite{ilsvrc2012} promises to produce labeled data for almost any desired
+category, such large-scale supervised datasets
+may not include images of the category across all
+domains of practical interest. Earlier deep learning efforts addressed this
+challenge by learning layers in an unsupervised fashion using unlabeled data to
+discover salient mid-level structures \cite{coates-nips12, dean-nips12}. While such approaches are appealing, they
+have heretofore been unable to match the level of performance of supervised
+models, and unsupervised training of networks with the same level of depth
+as \cite{supervision} remains a challenge.
+
+ 
+Unfortunately, supervised image datasets are inherently biased \cite{efros-cvpr11}. 
+Theoretical \cite{ben2007analysis, blitzer2007learning} and practical results \cite{saenko-eccv10,efros-cvpr11} have shown that supervised methods' test error increases in proportion to the difference between the test and training input distribution. 
+Many visual domain adaptation methods have been put forth to compensate for dataset bias \cite{daume,yang-icdm07,aytar-iccv11,saenko-eccv10,kulis-cvpr11,Khosla-eccv12,gopalan-iccv11,gong-cvpr12,hoffman-eccv12,hoffman-iclr13}, but are limited to shallow models. For deep models, fine-tuning is the most prevalent approach for supervised adaptation to novel tasks (see \cite{rcnn} for a recent example). 
+
+In this paper, we ask, \textit{Is fine-tuning the answer to domain adaptation with limited labeled target data?}
+In fact, fine-tuning a deep network's parameters on a small amount of labeled target data turns out to be unsurprisingly
+problematic. We instead propose a simple yet intuitive adaptation framework that integrates existing shallow domain adaptation techniques with the deep architecture.
+First, we use the A-distance metric~\cite{adist} to select the layer from the
+pre-trained CNN that minimizes the shift between the source and target domains.  We then learn a final domain-adapted output layer using the activations
+from the selected network layer.  
+We provide a comprehensive evaluation on the popular Office benchmark for classification across visually distinct domains, which contains 31 image categories and 3 domains \cite{saenko-eccv10}. 
+
+We also ask, \textit{Is adaptation even necessary for deep CNNs trained on truly large source datasets?}
+Recently, \cite{deeplearning-arxiv-2013} showed that using the deep mid-level features learned on ImageNet, instead of the more conventional bag-of-words features, effectively removed the bias in some of the domain adaptation settings in the Office dataset \cite{saenko-eccv10}.
+However, while \cite{deeplearning-arxiv-2013} transferred the representation from a large scale domain, they limited the labeled category examples to small source domains found in Office, 
+which are three orders of magnitude smaller than ImageNet. 
+%They also hand-select the depth of representation layers, whereas we provide an automatic way to select the depth of the network that is most useful for adaptation.
+To answer this question, we provide the first evaluation of benchmark visual domain adaptation tasks with deep learned representations in its most natural setting, with truly large-scale domain used as the source of category labels.
+Recent work by Rodner et al.~\cite{rodner-arxiv13} attempted to adapt from ImageNet to the SUN dataset, but did not take advantage of deep convolutional features. 
+
+We use the 1.2 million
+labeled images available in the 2012 ImageNet 1000-way classification
+dataset~\cite{ilsvrc2012} to train the representation in \cite{supervision}, and  $\approx$1200 labeled images per category as the source of category labels.
+This constitutes an order of magnitude increase in category-labeled source data compared to the  $\approx$100 labeled images per category in largest domain in Office.  We find that it is better to adapt from large-scale source domains \ks{double check this}, but that dataset bias nonetheless remains a major issue.
+The good news is, when adapting
+from ImageNet to Office, it turns out to be possible to achieve target domain
+performance on par with source domain performance using only a single labeled
+example per target category (one-shot adaptation) \ks{do we compare to source domain performance?}.  Our method also exceeds all previously published
+results on the standard benchmark Office adaptation task.
+
+We examine both the setting where there are a few labeled examples from the target domain (\emph{supervised adaptation}) and the setting where there are no labeled target examples (\emph{unsupervised adaptation}). We also describe practical solutions for choosing between the various adaptation methods based on experimental constraints such as limited computation time. 
+%quickly adding a new category at test time without retraining the large dataset, etc.
