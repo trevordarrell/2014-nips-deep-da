@@ -190,7 +190,6 @@ We investigate using the webcam domain as our target since it is the most distin
 Additionally, we only use one labeled target example for the supervised adaptation experiment. We do this to determine how useful a labeled target example is during adaptation. If there is very little bias between ImageNet and the webcam domain, then a single target example would not provide much adaptation benefit.
 The results for unsupervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(a), and the results for supervised adaptation are shown in Table~\ref{tab:imagenet_fc8}(b). % TODO fix reference
 \input{tables/imagenet_fc8_unsup_table}
-%\input{tables/imagenet_fc8_sup_table}
 
 \begin{figure}[h]
   \begin{center}
@@ -200,15 +199,15 @@ The results for unsupervised adaptation are shown in Table~\ref{tab:imagenet_fc8
   \label{fig:vary_num_target}
 \end{figure}
 
-
+Training a source only classifier on ImageNet produces 65.1\% test accuracy on ImageNet test data, but as the table shows, this number drops to 55.5\% when we test on Webcam data instead. Thus, it is clear that a domain shift still occurs.
 Interestingly, we find that we are not able to adapt in the unsupervised scenario, however, even with a single labeled target example per category (31 images total!), we are able to produce a dramatic performance boost -- 56\% up to 70\% multi class accuracy.
-\ks{in the intro we said Imagenet is better than Office, but that dataset bias
-nonetheless remains a major issue. can we state that result here pointing to table3? Also, strictly speaking Imagenet is not better than Office: for 3 examples, Imagenet to Webcam gets 81 judging from fig2,  we should discuss why that does not beat the highest number in table1, 86 for DSLR to Webcam. The lesson here is that if the source domain is very close to target, then it is better than a large scale but more distinct source}
-
-\ks{we also said that ``we achieve target domain performance on par with source domain performance using only a single labeled example per target category'', where is the source domain performance number here?}
 
 We also investigate how performance varies as we allow ourselves access to more labeled data in the target domain. We plot performance of both the target only baseline and DFE as we vary the number of labeled target examples in Figure~\ref{fig:vary_num_target}.
 As the results indicate, DFE provides a significant edge over the simple non-adaptive baseline for 4 or fewer labeled examples in the target domain. Thus, even when we do not limit ourselves to the extreme setting of only one labeled target example, using DFE continues to be effective. For a more complex target domain the benefit would likely continue with even more target examples.
+
+It is also worth noting that the test accuracy with ImageNet source data for 3 target examples is 81.2\%, which is lower than the number for the $D \rightarrow W$ shift in Table~\ref{tab:full-semi}.
+We suspect this is primarily due to how similar the DSLR and Webcam domains are.
+The takeaway is that, although a large-scale source dataset helps in most cases, if an alternative small-scale source dataset that closely matches the target data exists, it may be preferable to use the smaller source instead.
 
 % \ks{this paragraph is easy to lose.. isn't this the main point of the paper?}
 %\et{This paragraph also needs to be redone with FC8.}
@@ -220,15 +219,13 @@ As the results indicate, DFE provides a significant edge over the simple non-ada
 
 %In addition, unsupervised adaptation approaches are more effective than for the smaller source domain experiment. 
 
-\et{I left the following paragraph kind of vague. Is this a problem?}
-\ks{Why not repeat the numbers from Background section here?}
-
 We also attempted to fine tune the CNN on the target training data as another
 baseline to compare against. However, even with 3 labeled target examples per
 category, as is the standard for the Office dataset, we were unable to improve
 performance beyond the non-adaptive target only baseline, despite trying many
-variations of fine-tuning. It appears that 93 labeled images is simply not
-enough data to fine-tune a CNN of this size.
+variations of fine-tuning. Our best fine-tuning strategy degraded performance
+from 77\% to 75\%. It appears that 93 labeled images is simply not enough data
+to fine-tune a CNN of this size.
 
 \subsection{Parameter Analysis and Practical Considerations}
 \label{sec:analysis}

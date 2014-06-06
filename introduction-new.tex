@@ -46,11 +46,11 @@ Recent work by Rodner et al.~\cite{rodner-arxiv13} attempted to adapt from Image
 We use the 1.2 million
 labeled images available in the 2012 ImageNet 1000-way classification
 dataset~\cite{ilsvrc2012} to train the representation in \cite{supervision}, and  $\approx$1200 labeled images per category as the source of category labels.
-This constitutes an order of magnitude increase in category-labeled source data compared to the  $\approx$100 labeled images per category in largest domain in Office.  We find that it is better to adapt from large-scale source domains \ks{double check this}, but that dataset bias nonetheless remains a major issue.
+This constitutes an order of magnitude increase in category-labeled source data compared to the  $\approx$100 labeled images per category in largest domain in Office.  We find that in most cases it is better to adapt from large-scale source domains, but that dataset bias nonetheless remains a major issue.
 The good news is, when adapting
 from ImageNet to Office, it turns out to be possible to achieve target domain
 performance on par with source domain performance using only a single labeled
-example per target category (one-shot adaptation) \ks{do we compare to source domain performance?}.  Our method also exceeds all previously published
+example per target category (one-shot adaptation).  Our method also exceeds all previously published
 results on the standard benchmark Office adaptation task.
 
 We examine both the setting where there are a few labeled examples from the target domain (\emph{supervised adaptation}) and the setting where there are no labeled target examples (\emph{unsupervised adaptation}). We also describe practical solutions for choosing between the various adaptation methods based on experimental constraints such as limited computation time. 
