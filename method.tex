@@ -27,8 +27,8 @@
 % \ks{similar edit as in intro, see if this make sense}
 
 We propose learning a supervised deep CNN using a large amount of
-data from a relevant task to learn a representation. Then, we fix the network and train a new adaptation layer
-that takes as input the activations from both the source and target data (Figure~\ref{fig:model-adapt}). By
+data from a relevant set of tasks to learn a representation. Then, we fix the network and train a new adaptation layer
+that takes as input the activations from both source and target data (Figure~\ref{fig:model-adapt}). By
 using this hybrid approach we utilize the strong representation available from
 the supervised deep model trained on a large related-task dataset while requiring only
 enough target labeled data to train a shallow model with far fewer parameters.
@@ -50,10 +50,12 @@ can be (but isn't necessarily) the same data that was used to learn the represen
 This auxiliary source data may have different characteristics than the final target domain, but
 provides many more training examples of the categories of interest than would otherwise be available from the limited target domain. The method can be extended to multiple source domains.
 
-%Figure~\ref{fig:model-adapt} illustrates our proposed framework for adapting a deep CNN with limited target data.
-In general, there is no reason to assume a priori that
-transferring all of the pre-trained layers is the best approach.
-The dotted arrows in Figure~\ref{fig:model-adapt} illustrate that we could choose any of the three fully-connected layer and transfer its activations to the final adapted model. In principle, we could even stop at one of the convolutional layers, but in practice this turns out to be inferior as the fully-connected layers contain important information discriminating categories.
+Figure~\ref{fig:model-adapt} illustrates our proposed framework for adapting a deep CNN with limited target data.
+We depict the transfer of the top layer to the final adapted model for simplicity of presentation; however, in general, there is no reason to assume a priori that this layer would be best for adaptation.
+We propose a novel method for representation selection for domain adaptation based on a theoretically derived domain invariance criteria.
+%In general, there is no reason to assume a priori that
+%transferring all of the pre-trained layers is the best approach.
+%The dotted arrows in Figure~\ref{fig:model-adapt} illustrate that we could choose any of the three fully-connected layer and transfer its activations to the final adapted model. In principle, we could even stop at one of the convolutional layers, but in practice this turns out to be inferior as the fully-connected layers contain important information discriminating categories.
 
 
 Intuitively, when selecting a layer to use for adaptation, we would like to use
@@ -109,6 +111,16 @@ We explore three adaptation techniques, two supervised and one unsupervised:
     output layer using just the available source data.
 
 \end{itemize}
+
+Each method has its advantages and disadvantages. DFE is conceptually simple and
+requires no tuning, but running it triples the feature dimensionality. It must
+also train with the source data each time we wish to adapt to a new target
+domain. In contrast, DLF can train on the source data just once, then reuse the
+resulting classifier for adaptation to any other target domain; however,
+achieving optimal performance requires tuning a combination hyperparameter.
+Finally, both DFE and DLF require the presence of labeled target data. In the
+scenario where no such data is available, the only applicable method of the
+three is DSA.
 
 %We are interested in both unsupervised and supervised settings, so we examine
 %two sets of adaptation techniques. For the unsupervised setting, we use the
