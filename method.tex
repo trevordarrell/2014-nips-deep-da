@@ -18,7 +18,7 @@
 \begin{center}
 \includegraphics[width=.6\linewidth]{figs/model-adapt}
 \end{center}
-\caption{Our proposed framework for deep network adaptation. We train a supervised CNN of~\cite{supervision} for representation learning, using a large labeled dataset of many object categories. We then use a task specific labeled source domain to learn models for the specific categories of interest and adapt those models to the target domain which has little or no labeled data.  We do this by transferring automatically selected layers of the CNN and learning a new adaptation layer using their activations on source and target data.}
+\caption{Our proposed framework for deep network adaptation. We train a supervised CNN of~\cite{supervision} for representation learning, using a large labeled dataset of many object categories. We then use a task-specific labeled source domain to learn models for the specific categories of interest and adapt those models to the target domain which has little or no labeled data.  We do this by transferring all layers of the CNN up to and including an automatically selected ``bridge layer'', and learning a new adaptation layer on top to adapt from source to target data.}
 \label{fig:model-adapt}
 \end{figure}
 
@@ -32,6 +32,8 @@ that takes as input the activations from both source and target data (Figure~\re
 using this hybrid approach we utilize the strong representation available from
 the supervised deep model trained on a large related-task dataset while requiring only
 enough target labeled data to train a shallow model with far fewer parameters.
+However, different layers of the pre-trained network may have different cross-domain invariance properties. As an extreme example, consider transferring from object classification to digit recognition task: most likely only the lowest convolutional layers should be used. We call the last such useful layer the ``bridge layer'' and propose an algorithm to automatically select it.
+
 %Here, we present a general framework for selectively adapting the parameters of a
 %convolutional neural network (CNN) whose representation and classifier weights
 %are trained on a large-scale source domain, such as ImageNet. 
@@ -84,7 +86,7 @@ In practice, it is NP-hard to find the optimal hyperplane, so we use a computati
 close approximation to the A-distance metric which was introduced by Ben-David et al~\cite{adist-comp}, 
 where the optimal hyperplane is replaced by the classifier model parameter learned from a linear SVM.
 
-Once we have selected which layer to use, we then add an adaptation output layer above the selected layer, as indicated in Figure~\ref{fig:model-adapt}. This layer
+Once we have selected which bridge layer to use, we then add an adaptation output layer above the selected layer, as indicated in Figure~\ref{fig:model-adapt}. This layer
 consists of an adaptation technique which combines the source and target
 training data, then learns a linear classifier.
 

@@ -24,19 +24,19 @@ change. This is unsurprising, as fine tuning a large set of parameters
 normally requires many additional labeled examples to be effective.
 
 
-Fortunatley, pre-trained deep models do perform well in novel domains.
+Fortunately, pre-trained deep models do perform well in novel domains.
 Recently, \cite{deeplearning-arxiv-2013,hoffman-iclr14} showed that using the deep
 mid-level features learned on ImageNet, instead of the more
 conventional bag-of-words features, effectively removed the bias in
 some of the domain adaptation settings in the Office
 dataset \cite{saenko-eccv10}.   These papers transferred
 the representation from a large scale domain, ImageNet, as well as using all of the data in that domain as source data for 
-appropriate categories.  However, they did not address the question of which level of a deep representation is appropriate to transfer, and did not optimize the representation to minimize the domain shift.  
+appropriate categories.  However, they did not address the question of which level of a deep representation is appropriate to transfer to minimize the domain shift.
 
 We propose a simple yet intuitive adaptation framework that integrates
 existing shallow domain adaptation techniques with the deep
 architecture and explicity optmizes over sets of layers.  First, we
-use the A-distance metric~\cite{adist} to select the layer from the
+use the A-distance metric of difference between domains~\cite{adist} to select the layer from the
 pre-trained CNN that minimizes the shift between the source and target
 domains.  We then learn a final domain-adapted output layer using the
 activations from the selected network layer.  We provide a
@@ -47,7 +47,7 @@ image categories and 3 domains \cite{saenko-eccv10}.
 We examine both the setting where there are a few labeled examples
 from the target domain (\emph{supervised adaptation}) and the setting
 where there are no labeled target examples (\emph{unsupervised
-adaptation}). We also describe practical solutions for choosing
+adaptation}). In the supervised setting, our layer selection method improves on the results of \cite{deeplearning-arxiv-2013,hoffman-iclr14}. We also describe practical solutions for choosing
 between the various adaptation methods based on experimental
 constraints such as limited computation time.
 
