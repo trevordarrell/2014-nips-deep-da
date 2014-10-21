@@ -25,15 +25,13 @@ normally requires many additional labeled examples to be effective.
 
 
 Fortunatley, pre-trained deep models do perform well in novel domains.
-Recently, \cite{ICML-decaf,JudyICLRW} showed that using the deep
+Recently, \cite{deeplearning-arxiv-2013,hoffman-iclr14} showed that using the deep
 mid-level features learned on ImageNet, instead of the more
 conventional bag-of-words features, effectively removed the bias in
 some of the domain adaptation settings in the Office
-dataset \cite{saenko-eccv10}.   While these papers transferred
-the representation from a large scale domain, they limited the labeled
-category examples to small source domains found in Office, which are
-three orders of magnitude smaller than ImageNet. Additionally, they
-did not optimize the representation to minimize the domain shift.
+dataset \cite{saenko-eccv10}.   These papers transferred
+the representation from a large scale domain, ImageNet, as well as using all of the data in that domain as source data for 
+appropriate categories.  However, they did not address the question of which level of a deep representation is appropriate to transfer, and did not optimize the representation to minimize the domain shift.  
 
 We propose a simple yet intuitive adaptation framework that integrates
 existing shallow domain adaptation techniques with the deep
