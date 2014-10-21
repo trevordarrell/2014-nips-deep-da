@@ -1,0 +1,55 @@
+The dataset bias problem in traditional supervised approaches to image
+recognition is well known \cite{efros-cvpr11}.  A number of recent theoretical and empircal 
+results have shown that supervised methods' test error increases in
+proportion to the difference between the test and training input
+distribution \cite{ben2007analysis, blitzer2007learning,saenko-eccv10,efros-cvpr11}.  In the last few
+years several methods for visual domain adaptation have been suggested
+to overcome this
+issue \cite{daume,yang-icdm07,aytar-iccv11,saenko-eccv10,kulis-cvpr11,Khosla-eccv12,gopalan-iccv11,gong-cvpr12,hoffman-eccv12,hoffman-iclr13},
+but were limited to shallow models. The traditional approach to
+adapting deep models has been fine-tuning; see \cite{rcnn} for a
+recent example.  
+
+Fine-tuning a deep network's parameters on a small amount of labeled
+target data turns out to be unsurprisingly problematic, however.  In
+fact, in our experiments under this setting, fine-tuning, with the
+standard approach, actually reduces performance.  Specifically, on the
+ImageNet$\rightarrow$Webcam task reported in Section~\ref{sec:eval},
+using the final output layer as a predictor in the target domain
+received 77\% accuracy, while using the final output layer after fine
+tuning produced a degraded accuracy of 75\%. In our experiments, the
+only clear way to avoid overfitting and reducing overall performance
+was to set the learning rates so low the model essentially did not
+change. This is unsurprising, as fine tuning a large set of parameters
+normally requires many additional labeled examples to be effective.
+
+
+Fortunatley, pre-trained deep models do perform well in novel domains.
+Recently, \cite{ICML-decaf,JudyICLRW} showed that using the deep
+mid-level features learned on ImageNet, instead of the more
+conventional bag-of-words features, effectively removed the bias in
+some of the domain adaptation settings in the Office
+dataset \cite{saenko-eccv10}.   While these papers transferred
+the representation from a large scale domain, they limited the labeled
+category examples to small source domains found in Office, which are
+three orders of magnitude smaller than ImageNet. Additionally, they
+did not optimize the representation to minimize the domain shift.
+
+We propose a simple yet intuitive adaptation framework that integrates
+existing shallow domain adaptation techniques with the deep
+architecture and explicity optmizes over sets of layers.  First, we
+use the A-distance metric~\cite{adist} to select the layer from the
+pre-trained CNN that minimizes the shift between the source and target
+domains.  We then learn a final domain-adapted output layer using the
+activations from the selected network layer.  We provide a
+comprehensive evaluation on the popular Office benchmark for
+classification across visually distinct domains, which contains 31
+image categories and 3 domains \cite{saenko-eccv10}.
+
+We examine both the setting where there are a few labeled examples
+from the target domain (\emph{supervised adaptation}) and the setting
+where there are no labeled target examples (\emph{unsupervised
+adaptation}). We also describe practical solutions for choosing
+between the various adaptation methods based on experimental
+constraints such as limited computation time.
+

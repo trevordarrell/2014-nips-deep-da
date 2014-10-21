@@ -1,0 +1,109 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips14submit_e,times}
+\usepackage{hyperref}
+\usepackage{url}
+%\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
+
+\usepackage{bm}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{epsfig}
+\usepackage{graphicx}
+%\usepackage{subfigure}
+\usepackage{xspace}
+\usepackage{wrapfig}
+\usepackage{caption}
+\usepackage{subcaption}
+%\documentstyle[nips13submit_09,times,art10]{article} % For LaTeX 2.09
+
+
+%\title{Do Supervised Deep Image Models Trained with a Large Dataset Remove Dataset Bias?}
+\title{Adaptating Supervised Deep Convolutional Models to New Domains}
+
+
+\author{
+%Judy Hoffman, 
+Eric Tzeng, Judy Hoffman, Jeff Donahue \\
+UC Berkeley, EECS \& ICSI\\
+\footnotesize{\texttt{\{etzeng,jhoffman,jdonahue\}@eecs.berkeley.edu} }\\
+\And
+%Yangqing Jia\thanks{This work was completed while Yangqing Jia was a graduate student at UC Berkeley} \\
+%Google Research \\
+%\texttt{jiayq@google.com} \\
+%\AND
+Kate Saenko \\
+UMass Lowell, CS  \\
+\footnotesize{\texttt{saenko@cs.uml.edu}} \\
+\And
+Trevor Darrell \\
+UC Berkeley, EECS\\
+\footnotesize{\texttt{trevor@eecs.berkeley.edu}} \\
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\newcommand{\jh}[1]{\textcolor{red}{Judy: #1}}
+\newcommand{\ks}[1]{\textcolor{magenta}{Kate: #1}}
+\newcommand{\jd}[1]{\textcolor{green}{Jeff: #1}}
+\newcommand{\et}[1]{\textcolor{blue}{Eric: #1}}
+
+\newcommand{\daume}{Daum\'e~III\xspace}
+
+%\nipsfinalcopy % Uncomment for camera-ready version
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+%Dataset bias has been a significant barrier when solving real world computer vision tasks.
+%Though deep convolutional networks have proven to be a competitive approach for image classification, a question remains: have these models solved the dataset bias problem?
+Recent repors suggest that  a generic supervised deep CNN model trained on a large-scale dataset reduces, but does not remove, dataset bias on a standard benchmark. Fine-tuning deep models in a new domain can require a significant amount of data, which for many applications is simply not available. Here
+we propose novel methods for performing adaptation of deep models with limited training data.
+These methods make use of a domain similarity metric to adaptively select a deep representation that minimizes the shift between visual domains, thereby enabling adaptation with very little labeled domain specific data.
+Our proposed adaptation methods offers empirical performance which exceeds previously published results on a standard benchmark visual domain adaptation task.
+
+\end{abstract}
+
+\section{Introduction}
+\input introduction-cvpr
+
+%\vspace{-.3cm}
+%\section{Background: Deep Domain Adaptation Approaches}
+%\vspace{-.2cm}
+%\input decaf
+
+\vspace{-.3cm}
+\section{Representation Selection using A-distance}
+\label{sec:adapt-algs}
+\vspace{-.2cm}
+\input method
+
+\section{Evaluation}
+Our evaluation follows the protocols in our earlier reports \cite{ICML-decaf,JudyICLRW}, which we repeat in part below.
+\input eval
+
+\section{Conclusion}
+\input conclusion
+
+
+% References
+\small{
+\bibliographystyle{plain}
+\bibliography{main}
+}
+
+
+\end{document}
