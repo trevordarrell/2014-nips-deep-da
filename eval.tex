@@ -125,7 +125,7 @@ However, we expect that a lower layer may produce a lower A-distance for a more 
   %}
 %\end{itemize}
 
-\subsection{\emph{Office} Dataset Domain Adaptation Experiment}
+\subsection{\emph{Office} Dataset Domain Adaptation Experiments}
 In our experiments using the full Office dataset (31 categories),
 we follow the standard training protocol for this dataset of using 20 source
 examples per category~\cite{saenko-eccv10,gong-cvpr12}
@@ -200,7 +200,7 @@ The results for unsupervised adaptation are shown in Table~\ref{tab:imagenet_fc8
 \end{wrapfigure}
 
 Training a source only classifier on ImageNet produces 65.1\% test accuracy on ImageNet test data, but as the table shows, this number drops to 55.5\% when we test on Webcam data instead. Thus, it is clear that a domain shift still occurs.
-Interestingly, we find that we are not able to mprove performance using adaptation in the unsupervised scenario; however, with only a single labeled target example per category (31 images total!), we are able to produce a dramatic performance boost -- 56\% up to 70\% multi class accuracy in the supervised setting.
+Interestingly, we find that we are not able to improve performance using adaptation in the unsupervised scenario; however, with only a single labeled target example per category (31 images total!), we are able to produce a dramatic performance boost -- 56\% up to 70\% multi class accuracy in the supervised setting.
 
 We also investigate how performance varies as we allow ourselves access to more labeled data in the target domain. We plot performance of both the target-only baseline and DFE as we vary the number of labeled target examples in Figure~\ref{fig:vary_num_target}.
 As the results indicate, DFE provides a significant edge over the simple non-adaptive baseline for 4 or fewer labeled examples in the target domain. Thus, even when we do not limit ourselves to the extreme setting of only one labeled target example, using DFE continues to be effective. For a more complex target domain the benefit would likely continue with even more target examples.
