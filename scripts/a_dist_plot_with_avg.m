@@ -18,7 +18,7 @@ X = 1:3;
 figure;
 p1 = errorbar(X, means, errs, 'Color', 'r', 'LineWidth', 3);
 hold on;
-p2 = plot([1, 3], [mean(means), mean(means)], ':', 'Color', 'r', 'LineWidth', 3);
+p2 = plot([1, 3], [mean(means), mean(means)], '-.', 'Color', 'r', 'LineWidth', 3);
 haxes1 = gca;
 set(haxes1, 'YColor', 'r', 'XColor', 'k', 'XTick', X, 'XTickLabel', {'FC6', 'FC7', 'FC8'});
 ylabel('DFE Multiclass Accuracy', 'FontSize', 20);
